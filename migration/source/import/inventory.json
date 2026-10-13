@@ -1,0 +1,87 @@
+[
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/posts",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "postsCount({\"where\":{\"status\":\"published\"}})": 2,
+      "posts({\"skip\":0,\"take\":10,\"where\":{\"status\":\"published\"}})": [
+        {
+          "__ref": "Post:cmqstcg2l0003lw0q33gesi4g"
+        },
+        {
+          "__ref": "Post:cmqsnu96e000tml0qsyzh469g"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/concepts",
+    "status": 200
+  },
+  {
+    "path": "/users",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "usersCount({\"where\":{\"status\":\"active\"}})": 3,
+      "users({\"skip\":0,\"take\":10,\"where\":{\"status\":\"active\"}})": [
+        {
+          "__ref": "User:cmtg2938r00d5mn0qjjca75bn"
+        },
+        {
+          "__ref": "User:cmlr57y2b0004s50qs8et9733"
+        },
+        {
+          "__ref": "User:cmlr4pde10000s50qw0q242h3"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/tasks",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "tasks({\"orderBy\":{\"createdAt\":\"desc\"},\"skip\":0,\"take\":20,\"where\":{\"incompletedOnly\":true}})": [],
+      "tasksCount({\"where\":{\"incompletedOnly\":true}})": 0
+    }
+  },
+  {
+    "path": "/worklogs",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "taskWorkLogs({\"skip\":0,\"take\":20})": [],
+      "taskWorkLogCount": 0
+    }
+  },
+  {
+    "path": "/knowledges-base",
+    "status": 200
+  },
+  {
+    "path": "/posts/cmqstcg2l0003lw0q33gesi4g",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "post({\"where\":{\"id\":\"cmqstcg2l0003lw0q33gesi4g\"}})": {
+        "__ref": "Post:cmqstcg2l0003lw0q33gesi4g"
+      }
+    }
+  },
+  {
+    "path": "/posts/cmqsnu96e000tml0qsyzh469g",
+    "status": 200,
+    "query": {
+      "__typename": "Query",
+      "post({\"where\":{\"id\":\"cmqsnu96e000tml0qsyzh469g\"}})": {
+        "__ref": "Post:cmqsnu96e000tml0qsyzh469g"
+      }
+    }
+  }
+]

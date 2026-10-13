@@ -17,3 +17,6 @@ playwright-report/
 test-results/
 
 !docker/.env.example
+
+# Локальные кеши инструментов переноса.
+.cache/

@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://haih.site/sitemap.xml
+Sitemap: https://modx.club/sitemap.xml

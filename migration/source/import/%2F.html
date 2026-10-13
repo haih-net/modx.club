@@ -1,0 +1,242 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" data-next-head=""/><title data-next-head="">Перенос и модернизация сайтов на MODX без остановки бизнеса | modx.club</title><meta name="robots" content="index, follow" data-next-head=""/><link rel="icon" href="/modx.svg" type="image/x-icon"/><script type="application/ld+json" data-next-head="">{"@context":"https://schema.org","@type":"WebSite","name":"Перенос и модернизация сайтов на MODX без остановки бизнеса | modx.club","description":"Обновление и перенос сайтов на MODX без остановки работы. Контейнеризация в Docker, новый фронтенд поверх MODX, сохранение SEO, поэтапная миграция и полный переход на современную архитектуру с возможностью отката на каждом этапе.","url":"http://localhost:3000"}</script><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/><noscript data-n-css=""></noscript><script defer="" noModule="" src="/_next/static/chunks/polyfills-42372ed130431b0a.js"></script><script src="/_next/static/chunks/webpack-19722dea9a77a588.js" defer=""></script><script src="/_next/static/chunks/framework-ec93b2fc11895551.js" defer=""></script><script src="/_next/static/chunks/main-13c1307e2444552d.js" defer=""></script><script src="/_next/static/chunks/pages/_app-05a3163bd1cf2c02.js" defer=""></script><script src="/_next/static/chunks/pages/index-e8349057d9bf9127.js" defer=""></script><script src="/_next/static/FncaFOGxoZol8zeafCNtr/_buildManifest.js" defer=""></script><script src="/_next/static/FncaFOGxoZol8zeafCNtr/_ssgManifest.js" defer=""></script><style data-styled="" data-styled-version="6.4.2">*{box-sizing:border-box;margin:0;padding:0;margin-top:0;margin-bottom:0;}/*!sc*/
+*:focus{outline:none;}/*!sc*/
+html,body{height:100%;padding:0;margin:0;}/*!sc*/
+body{font-family:'Nunito',sans-serif;font-size:16px;}/*!sc*/
+#__next{height:100%;}/*!sc*/
+a{text-decoration:none;color:#1f2937;}/*!sc*/
+a:hover{text-decoration:underline;}/*!sc*/
+a:active{text-decoration:none;}/*!sc*/
+input:disabled{cursor:not-allowed;opacity:0.7;}/*!sc*/
+button:enabled{cursor:pointer;}/*!sc*/
+button:disabled{cursor:not-allowed;opacity:0.7;}/*!sc*/
+body .mdxeditor-popup-container{z-index:2000;}/*!sc*/
+data-styled.g3[id="sc-global-GYcUl"]{content:"sc-global-GYcUl1,"}/*!sc*/
+*,*::before,*::after{box-sizing:border-box;}/*!sc*/
+html,body,#root{height:100%;}/*!sc*/
+body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.55;color:#0F1A2E;background:#F5F7FB;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}/*!sc*/
+a{color:inherit;text-decoration:none;}/*!sc*/
+button{font-family:inherit;}/*!sc*/
+h1,h2,h3,h4,h5,h6{margin:0;font-weight:600;letter-spacing:-0.01em;}/*!sc*/
+p{margin:0;}/*!sc*/
+data-styled.g32[id="sc-global-ddmFkD"]{content:"sc-global-ddmFkD1,"}/*!sc*/
+.hYVOZb{width:100%;max-width:1280px;margin:0 auto;padding-left:32px;padding-right:32px;}/*!sc*/
+@media (max-width:900px){.hYVOZb{padding-left:16px;padding-right:16px;}}/*!sc*/
+data-styled.g33[id="sc-662eb54e-0"]{content:"hYVOZb,"}/*!sc*/
+.WqhEl{background:#0B1224;color:#E7ECF5;padding-top:72px;padding-bottom:32px;}/*!sc*/
+data-styled.g34[id="sc-89852380-0"]{content:"WqhEl,"}/*!sc*/
+.jEHcw{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:48px;}/*!sc*/
+@media (max-width:900px){.jEHcw{grid-template-columns:1fr 1fr;gap:32px;}}/*!sc*/
+@media (max-width:640px){.jEHcw{grid-template-columns:1fr;}}/*!sc*/
+data-styled.g35[id="sc-89852380-1"]{content:"jEHcw,"}/*!sc*/
+.eyEcVI{display:flex;flex-direction:column;gap:16px;}/*!sc*/
+data-styled.g36[id="sc-89852380-2"]{content:"eyEcVI,"}/*!sc*/
+.kUEDSr{font-size:22px;font-weight:600;color:#fff;}/*!sc*/
+data-styled.g37[id="sc-89852380-3"]{content:"kUEDSr,"}/*!sc*/
+.gPSvII{color:#94A0B8;font-size:13px;max-width:320px;}/*!sc*/
+data-styled.g38[id="sc-89852380-4"]{content:"gPSvII,"}/*!sc*/
+.jfePnv{display:flex;flex-direction:column;gap:16px;}/*!sc*/
+data-styled.g39[id="sc-89852380-5"]{content:"jfePnv,"}/*!sc*/
+.gCwzqo{color:#fff;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;}/*!sc*/
+data-styled.g40[id="sc-89852380-6"]{content:"gCwzqo,"}/*!sc*/
+.dNSPbk{text-align:left;background:none;border:none;padding:0;color:#94A0B8;font-size:13px;cursor:pointer;font-family:inherit;transition:color 120ms ease;}/*!sc*/
+.dNSPbk:hover{color:#fff;}/*!sc*/
+data-styled.g41[id="sc-89852380-7"]{content:"dNSPbk,"}/*!sc*/
+.cywUAt{display:flex;flex-direction:column;gap:8px;}/*!sc*/
+data-styled.g42[id="sc-89852380-8"]{content:"cywUAt,"}/*!sc*/
+.bUhqdH{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:16px;color:#94A0B8;font-size:12px;}/*!sc*/
+@media (max-width:640px){.bUhqdH{flex-direction:column;align-items:flex-start;}}/*!sc*/
+data-styled.g43[id="sc-89852380-9"]{content:"bUhqdH,"}/*!sc*/
+.ipQEYP{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 120ms ease,border-color 120ms ease,color 120ms ease;width:auto;height:34px;padding:0 16px;font-size:13px;background:#0B1224;color:#E7ECF5;}/*!sc*/
+.ipQEYP:hover:not(:disabled){background:#101A33;}/*!sc*/
+.ipQEYP:disabled{opacity:0.55;cursor:not-allowed;}/*!sc*/
+.kAoVoo{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 120ms ease,border-color 120ms ease,color 120ms ease;width:auto;height:42px;padding:0 24px;font-size:15px;background:#2E6BFF;color:#fff;box-shadow:0 1px 2px rgba(15, 26, 46, 0.06);}/*!sc*/
+.kAoVoo:hover:not(:disabled){background:#1E55D8;}/*!sc*/
+.kAoVoo:disabled{opacity:0.55;cursor:not-allowed;}/*!sc*/
+.jpoktI{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 120ms ease,border-color 120ms ease,color 120ms ease;width:auto;height:42px;padding:0 24px;font-size:15px;background:transparent;color:#0F1A2E;}/*!sc*/
+.jpoktI:hover:not(:disabled){background:#F0F3F9;}/*!sc*/
+.jpoktI:disabled{opacity:0.55;cursor:not-allowed;}/*!sc*/
+data-styled.g44[id="sc-a272a755-0"]{content:"ipQEYP,kAoVoo,jpoktI,"}/*!sc*/
+.gqvnMK{display:inline-flex;align-items:center;font-size:1.1em;}/*!sc*/
+data-styled.g45[id="sc-a272a755-1"]{content:"gqvnMK,"}/*!sc*/
+.eRkJEg{display:inline-flex;align-items:center;gap:8px;background:none;border:none;padding:0;cursor:pointer;color:#0F1A2E;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.01em;}/*!sc*/
+data-styled.g46[id="sc-3f894a12-0"]{content:"eRkJEg,"}/*!sc*/
+.fnzpLJ{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#0B1224;color:#fff;font-size:13px;font-weight:700;}/*!sc*/
+data-styled.g47[id="sc-3f894a12-1"]{content:"fnzpLJ,"}/*!sc*/
+.jQhgRO>em{font-style:normal;color:#2E6BFF;}/*!sc*/
+data-styled.g48[id="sc-3f894a12-2"]{content:"jQhgRO,"}/*!sc*/
+.eEdJOK{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #E3E8F1;}/*!sc*/
+data-styled.g49[id="sc-eacbfdd0-0"]{content:"eEdJOK,"}/*!sc*/
+.jhKPdv{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;}/*!sc*/
+data-styled.g50[id="sc-eacbfdd0-1"]{content:"jhKPdv,"}/*!sc*/
+.iresOb{order:3;flex-basis:100%;display:none;flex-direction:column;gap:4px;padding-bottom:12px;border-top:1px solid #E3E8F1;padding-top:12px;}/*!sc*/
+@media (min-width:900px){.iresOb{order:0;flex-basis:auto;display:flex;flex-direction:row;align-items:center;gap:8px;padding:0;border-top:none;}}/*!sc*/
+data-styled.g51[id="sc-eacbfdd0-2"]{content:"iresOb,"}/*!sc*/
+.eBwqOY{background:none;border:none;text-align:left;padding:12px 12px;border-radius:6px;color:#5A6679;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:color 120ms ease,background 120ms ease;}/*!sc*/
+.eBwqOY:hover{color:#0F1A2E;background:#F0F3F9;}/*!sc*/
+@media (min-width:900px){.eBwqOY{font-size:13px;padding:8px 12px;}}/*!sc*/
+data-styled.g52[id="sc-eacbfdd0-3"]{content:"eBwqOY,"}/*!sc*/
+.fXuqcD{display:flex;align-items:center;gap:8px;}/*!sc*/
+data-styled.g53[id="sc-eacbfdd0-4"]{content:"fXuqcD,"}/*!sc*/
+.qogNl{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #E3E8F1;background:#FFFFFF;border-radius:6px;color:#0F1A2E;cursor:pointer;font-size:20px;padding:0;}/*!sc*/
+@media (min-width:900px){.qogNl{display:none;}}/*!sc*/
+data-styled.g55[id="sc-eacbfdd0-6"]{content:"qogNl,"}/*!sc*/
+.cDAnwM{display:flex;flex-direction:column;min-height:100vh;background:#F5F7FB;}/*!sc*/
+data-styled.g56[id="sc-f4bc612e-0"]{content:"cDAnwM,"}/*!sc*/
+.kjnFom{flex:1;display:flex;flex-direction:column;}/*!sc*/
+data-styled.g57[id="sc-f4bc612e-1"]{content:"kjnFom,"}/*!sc*/
+.ewjXdS{position:fixed;bottom:24px;right:24px;z-index:1000;}/*!sc*/
+data-styled.g59[id="sc-1df77d2-0"]{content:"ewjXdS,"}/*!sc*/
+.uiOMH{width:56px;height:56px;border-radius:50%;background:#3b82f6;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(59,130,246,0.4);transition:transform 0.2s,box-shadow 0.2s;}/*!sc*/
+.uiOMH:hover{transform:scale(1.05);box-shadow:0 6px 16px rgba(59,130,246,0.5);}/*!sc*/
+.uiOMH svg{width:24px;height:24px;fill:#fff;display:block;}/*!sc*/
+data-styled.g77[id="sc-1df77d2-18"]{content:"uiOMH,"}/*!sc*/
+.iHsjPR{background:radial-gradient( circle at 0% 0%,#E8F0FF 0%,transparent 55% ),radial-gradient( circle at 100% 100%,#E6F7EC 0%,transparent 50% ),#F5F7FB;padding:48px 0 48px;}/*!sc*/
+@media (min-width:900px){.iHsjPR{padding:72px 0 72px;}}/*!sc*/
+data-styled.g144[id="sc-282a9fb7-0"]{content:"iHsjPR,"}/*!sc*/
+.gCyyZM{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;}/*!sc*/
+@media (min-width:900px){.gCyyZM{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;}}/*!sc*/
+data-styled.g145[id="sc-282a9fb7-1"]{content:"gCyyZM,"}/*!sc*/
+.lmIqsX{display:flex;flex-direction:column;gap:24px;}/*!sc*/
+data-styled.g146[id="sc-282a9fb7-2"]{content:"lmIqsX,"}/*!sc*/
+.dgypHz{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E8F1;color:#2E6BFF;font-size:12px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;}/*!sc*/
+.dgypHz::before{content:'';width:6px;height:6px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 4px #E6F7EC;}/*!sc*/
+data-styled.g147[id="sc-282a9fb7-3"]{content:"dgypHz,"}/*!sc*/
+.cSfFWQ{margin:0;color:#0F1A2E;font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-0.02em;}/*!sc*/
+@media (min-width:900px){.cSfFWQ{font-size:44px;}}/*!sc*/
+data-styled.g148[id="sc-282a9fb7-4"]{content:"cSfFWQ,"}/*!sc*/
+.kgOwCO{display:block;background:linear-gradient( 90deg,#2E6BFF 0%,#16A34A 100% );-webkit-background-clip:text;background-clip:text;color:transparent;}/*!sc*/
+data-styled.g149[id="sc-282a9fb7-5"]{content:"kgOwCO,"}/*!sc*/
+.isNMvS{margin:0;color:#5A6679;font-size:15px;line-height:1.6;max-width:560px;}/*!sc*/
+@media (min-width:900px){.isNMvS{font-size:17px;}}/*!sc*/
+data-styled.g150[id="sc-282a9fb7-6"]{content:"isNMvS,"}/*!sc*/
+.ldpNwf{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}/*!sc*/
+data-styled.g151[id="sc-282a9fb7-7"]{content:"ldpNwf,"}/*!sc*/
+.jTSvdK{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E8F1;color:#0F1A2E;font-size:13px;font-weight:500;}/*!sc*/
+.jTSvdK::before{content:'✓';color:#16A34A;font-weight:700;}/*!sc*/
+data-styled.g152[id="sc-282a9fb7-8"]{content:"jTSvdK,"}/*!sc*/
+.clVjCc{display:flex;flex-direction:column;gap:12px;}/*!sc*/
+@media (min-width:640px){.clVjCc{flex-direction:row;flex-wrap:wrap;gap:16px;}}/*!sc*/
+data-styled.g153[id="sc-282a9fb7-9"]{content:"clVjCc,"}/*!sc*/
+.kBMOtG{margin:0;padding:24px 0 0;border-top:1px solid #E3E8F1;display:grid;grid-template-columns:1fr;gap:16px;}/*!sc*/
+@media (min-width:640px){.kBMOtG{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}}/*!sc*/
+data-styled.g154[id="sc-282a9fb7-10"]{content:"kBMOtG,"}/*!sc*/
+.eOGWPL{display:flex;flex-direction:column;gap:4px;}/*!sc*/
+data-styled.g155[id="sc-282a9fb7-11"]{content:"eOGWPL,"}/*!sc*/
+.gRAxnu{font-size:22px;font-weight:700;color:#0F1A2E;letter-spacing:-0.01em;}/*!sc*/
+data-styled.g156[id="sc-282a9fb7-12"]{content:"gRAxnu,"}/*!sc*/
+.kfteyy{margin:0;font-size:13px;color:#5A6679;line-height:1.4;}/*!sc*/
+data-styled.g157[id="sc-282a9fb7-13"]{content:"kfteyy,"}/*!sc*/
+.lnpQbY{position:relative;border-radius:20px;overflow:hidden;background:#FFFFFF;border:1px solid #E3E8F1;box-shadow:0 12px 32px rgba(15, 26, 46, 0.12);aspect-ratio:4/3;}/*!sc*/
+@media (min-width:900px){.lnpQbY{aspect-ratio:5/4;}}/*!sc*/
+data-styled.g158[id="sc-282a9fb7-14"]{content:"lnpQbY,"}/*!sc*/
+.dCVJrs{display:block;width:100%;height:100%;object-fit:cover;}/*!sc*/
+data-styled.g159[id="sc-282a9fb7-15"]{content:"dCVJrs,"}/*!sc*/
+.hPRGIv{padding:48px 0 48px;background:#F5F7FB;}/*!sc*/
+@media (min-width:900px){.hPRGIv{padding:72px 0 72px;}}/*!sc*/
+data-styled.g160[id="sc-103171e0-0"]{content:"hPRGIv,"}/*!sc*/
+.jIaQks{padding:48px 0 48px;background:#FFFFFF;}/*!sc*/
+@media (min-width:900px){.jIaQks{padding:72px 0 72px;}}/*!sc*/
+data-styled.g161[id="sc-103171e0-1"]{content:"jIaQks,"}/*!sc*/
+.lmZUTs{padding:48px 0 48px;background:#0B1224;color:#E7ECF5;}/*!sc*/
+@media (min-width:900px){.lmZUTs{padding:72px 0 72px;}}/*!sc*/
+data-styled.g162[id="sc-103171e0-2"]{content:"lmZUTs,"}/*!sc*/
+.wTork{display:flex;flex-direction:column;gap:16px;max-width:760px;margin-bottom:32px;text-align:left;}/*!sc*/
+@media (min-width:900px){.wTork{margin-bottom:48px;}}/*!sc*/
+data-styled.g163[id="sc-103171e0-3"]{content:"wTork,"}/*!sc*/
+.ekoKfi{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#E8F0FF;color:#2E6BFF;font-size:12px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;}/*!sc*/
+data-styled.g164[id="sc-103171e0-4"]{content:"ekoKfi,"}/*!sc*/
+.kvbOJr{margin:0;color:#0F1A2E;font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}/*!sc*/
+@media (min-width:900px){.kvbOJr{font-size:32px;}}/*!sc*/
+data-styled.g165[id="sc-103171e0-5"]{content:"kvbOJr,"}/*!sc*/
+.jLiooE{margin:0;color:#5A6679;font-size:15px;line-height:1.6;}/*!sc*/
+@media (min-width:900px){.jLiooE{font-size:17px;}}/*!sc*/
+data-styled.g166[id="sc-103171e0-6"]{content:"jLiooE,"}/*!sc*/
+.epkDeJ{display:grid;grid-template-columns:1fr;gap:16px;}/*!sc*/
+@media (min-width:640px){.epkDeJ{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}}/*!sc*/
+data-styled.g171[id="sc-8bd72b73-0"]{content:"epkDeJ,"}/*!sc*/
+.kFYRBZ{position:relative;padding:24px;background:#FFFFFF;border:1px solid #E3E8F1;border-radius:14px;display:flex;flex-direction:column;gap:12px;}/*!sc*/
+.kFYRBZ::before{content:'';position:absolute;top:24px;left:24px;width:8px;height:8px;border-radius:50%;background:#E5484D;box-shadow:0 0 0 4px #F0F3F9;}/*!sc*/
+@media (min-width:900px){.kFYRBZ{padding:32px;}}/*!sc*/
+data-styled.g172[id="sc-8bd72b73-1"]{content:"kFYRBZ,"}/*!sc*/
+.fscujB{margin:0;padding-left:24px;color:#0F1A2E;font-size:17px;font-weight:600;line-height:1.3;}/*!sc*/
+data-styled.g173[id="sc-8bd72b73-2"]{content:"fscujB,"}/*!sc*/
+.ddBKhj{margin:0;color:#5A6679;font-size:15px;line-height:1.55;}/*!sc*/
+data-styled.g174[id="sc-8bd72b73-3"]{content:"ddBKhj,"}/*!sc*/
+.bAAMnY{display:grid;grid-template-columns:1fr;gap:32px;}/*!sc*/
+@media (min-width:1200px){.bAAMnY{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:start;}}/*!sc*/
+data-styled.g175[id="sc-628866ea-0"]{content:"bAAMnY,"}/*!sc*/
+.iMsnOe{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;}/*!sc*/
+data-styled.g176[id="sc-628866ea-1"]{content:"iMsnOe,"}/*!sc*/
+.ldUuOE{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;padding:24px;background:#FFFFFF;border:1px solid #E3E8F1;border-radius:14px;}/*!sc*/
+@media (min-width:900px){.ldUuOE{padding:32px;gap:24px;}}/*!sc*/
+data-styled.g177[id="sc-628866ea-2"]{content:"ldUuOE,"}/*!sc*/
+.elHacx{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 12px;border-radius:10px;background:#E8F0FF;color:#2E6BFF;font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-weight:700;font-size:15px;}/*!sc*/
+data-styled.g178[id="sc-628866ea-3"]{content:"elHacx,"}/*!sc*/
+.fWhIDE{display:flex;flex-direction:column;gap:8px;min-width:0;}/*!sc*/
+data-styled.g179[id="sc-628866ea-4"]{content:"fWhIDE,"}/*!sc*/
+.hrLXYf{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:#16A34A;}/*!sc*/
+data-styled.g180[id="sc-628866ea-5"]{content:"hrLXYf,"}/*!sc*/
+.dVoKDA{margin:0;color:#0F1A2E;font-size:17px;font-weight:600;line-height:1.3;}/*!sc*/
+data-styled.g181[id="sc-628866ea-6"]{content:"dVoKDA,"}/*!sc*/
+.ehAHRa{margin:0;color:#5A6679;font-size:15px;line-height:1.55;}/*!sc*/
+data-styled.g182[id="sc-628866ea-7"]{content:"ehAHRa,"}/*!sc*/
+.gtuJvV{position:sticky;top:24px;border-radius:20px;overflow:hidden;border:1px solid #E3E8F1;background:#FFFFFF;box-shadow:0 4px 12px rgba(15, 26, 46, 0.08);aspect-ratio:4/3;}/*!sc*/
+data-styled.g183[id="sc-628866ea-8"]{content:"gtuJvV,"}/*!sc*/
+.jtmei{display:block;width:100%;height:100%;object-fit:cover;}/*!sc*/
+data-styled.g184[id="sc-628866ea-9"]{content:"jtmei,"}/*!sc*/
+.dsmvKj{display:grid;grid-template-columns:1fr;gap:16px;}/*!sc*/
+@media (min-width:640px){.dsmvKj{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}}/*!sc*/
+@media (min-width:900px){.dsmvKj{grid-template-columns:repeat(3,minmax(0,1fr));}}/*!sc*/
+data-styled.g185[id="sc-d8d7615-0"]{content:"dsmvKj,"}/*!sc*/
+.lxYdw{display:flex;flex-direction:column;gap:12px;padding:24px;background:#FFFFFF;border:1px solid #E3E8F1;border-radius:14px;transition:200ms ease;}/*!sc*/
+.lxYdw:hover{border-color:#2E6BFF;box-shadow:0 4px 12px rgba(15, 26, 46, 0.08);transform:translateY(-2px);}/*!sc*/
+@media (min-width:900px){.lxYdw{padding:32px;}}/*!sc*/
+data-styled.g186[id="sc-d8d7615-1"]{content:"lxYdw,"}/*!sc*/
+.dowUqJ{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:10px;background:#E8F0FF;color:#2E6BFF;font-size:22px;line-height:1;}/*!sc*/
+data-styled.g187[id="sc-d8d7615-2"]{content:"dowUqJ,"}/*!sc*/
+.iLcykE{margin:0;color:#0F1A2E;font-size:17px;font-weight:600;line-height:1.3;}/*!sc*/
+data-styled.g188[id="sc-d8d7615-3"]{content:"iLcykE,"}/*!sc*/
+.jrhKUA{margin:0;color:#5A6679;font-size:15px;line-height:1.55;}/*!sc*/
+data-styled.g189[id="sc-d8d7615-4"]{content:"jrhKUA,"}/*!sc*/
+.lotFRg{display:grid;grid-template-columns:1fr;gap:16px;}/*!sc*/
+@media (min-width:640px){.lotFRg{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}}/*!sc*/
+@media (min-width:1200px){.lotFRg{grid-template-columns:repeat(4,minmax(0,1fr));}}/*!sc*/
+data-styled.g190[id="sc-9647a4ca-0"]{content:"lotFRg,"}/*!sc*/
+.dOpRUR{display:flex;flex-direction:column;gap:16px;padding:24px;background:#0B1224;color:#E7ECF5;border-radius:14px;border:1px solid rgba(255,255,255,0.06);}/*!sc*/
+@media (min-width:900px){.dOpRUR{padding:32px;}}/*!sc*/
+data-styled.g191[id="sc-9647a4ca-1"]{content:"dOpRUR,"}/*!sc*/
+.dPDBdR{margin:0;color:#E7ECF5;font-size:17px;font-weight:600;line-height:1.3;}/*!sc*/
+data-styled.g192[id="sc-9647a4ca-2"]{content:"dPDBdR,"}/*!sc*/
+.jHDtfv{margin:0;color:#94A0B8;font-size:13px;line-height:1.55;}/*!sc*/
+data-styled.g193[id="sc-9647a4ca-3"]{content:"jHDtfv,"}/*!sc*/
+.gMQRxQ{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}/*!sc*/
+data-styled.g194[id="sc-9647a4ca-4"]{content:"gMQRxQ,"}/*!sc*/
+.kErGcs{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,0.06);color:#E7ECF5;font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-size:12px;}/*!sc*/
+data-styled.g195[id="sc-9647a4ca-5"]{content:"kErGcs,"}/*!sc*/
+.dvQpSG{position:relative;overflow:hidden;padding:32px;border-radius:20px;background:radial-gradient( circle at 0% 0%,rgba(46,107,255,0.35) 0%,transparent 55% ),radial-gradient( circle at 100% 100%,rgba(22,163,74,0.25) 0%,transparent 50% ),#0B1224;color:#E7ECF5;display:grid;grid-template-columns:1fr;gap:24px;}/*!sc*/
+@media (min-width:900px){.dvQpSG{padding:48px;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:center;}}/*!sc*/
+data-styled.g196[id="sc-2b699fd6-0"]{content:"dvQpSG,"}/*!sc*/
+.kJGpxE{display:flex;flex-direction:column;gap:16px;}/*!sc*/
+data-styled.g197[id="sc-2b699fd6-1"]{content:"kJGpxE,"}/*!sc*/
+.krIWgE{display:inline-flex;align-self:flex-start;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.08);color:#E7ECF5;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}/*!sc*/
+data-styled.g198[id="sc-2b699fd6-2"]{content:"krIWgE,"}/*!sc*/
+.gVLtWV{margin:0;color:#E7ECF5;font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-0.02em;}/*!sc*/
+@media (min-width:900px){.gVLtWV{font-size:32px;}}/*!sc*/
+data-styled.g199[id="sc-2b699fd6-3"]{content:"gVLtWV,"}/*!sc*/
+.fVCkuA{margin:0;color:#94A0B8;font-size:15px;line-height:1.6;}/*!sc*/
+@media (min-width:900px){.fVCkuA{font-size:17px;}}/*!sc*/
+data-styled.g200[id="sc-2b699fd6-4"]{content:"fVCkuA,"}/*!sc*/
+.iPwZaE{display:flex;flex-direction:column;gap:24px;padding:24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;}/*!sc*/
+@media (min-width:900px){.iPwZaE{padding:32px;}}/*!sc*/
+data-styled.g201[id="sc-2b699fd6-5"]{content:"iPwZaE,"}/*!sc*/
+.kShAtj{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}/*!sc*/
+data-styled.g202[id="sc-2b699fd6-6"]{content:"kShAtj,"}/*!sc*/
+.kmOsuq{display:flex;align-items:flex-start;gap:12px;color:#E7ECF5;font-size:15px;line-height:1.5;}/*!sc*/
+.kmOsuq::before{content:'→';color:#16A34A;font-weight:700;}/*!sc*/
+data-styled.g203[id="sc-2b699fd6-7"]{content:"kmOsuq,"}/*!sc*/
+.ftFHis{display:flex;flex-direction:column;gap:12px;}/*!sc*/
+@media (min-width:640px){.ftFHis{flex-direction:row;flex-wrap:wrap;gap:16px;}}/*!sc*/
+data-styled.g204[id="sc-2b699fd6-8"]{content:"ftFHis,"}/*!sc*/
+.euOFQN{margin:0;color:#94A0B8;font-size:13px;line-height:1.5;}/*!sc*/
+data-styled.g205[id="sc-2b699fd6-9"]{content:"euOFQN,"}/*!sc*/
+</style></head><body><link rel="preload" as="image" href="/_next/static/media/hero-migration.d51606ec.jpg"/><div id="__next"><div class="sc-f4bc612e-0 cDAnwM"><header class="sc-eacbfdd0-0 eEdJOK"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-eacbfdd0-1 jhKPdv"><button type="button" aria-label="modx.club" class="sc-3f894a12-0 eRkJEg"><span class="sc-3f894a12-1 fnzpLJ">M</span><span class="sc-3f894a12-2 jQhgRO">modx<!-- -->.<em>club</em></span></button><div class="sc-eacbfdd0-4 fXuqcD"><button value="Как мне связаться с администрацией сайта?" class="sc-a272a755-0 ipQEYP"><span class="sc-a272a755-1 gqvnMK"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></span>Связаться</button><button aria-label="Открыть меню" aria-expanded="false" class="sc-eacbfdd0-6 qogNl"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button></div><nav class="sc-eacbfdd0-2 iresOb"><button class="sc-eacbfdd0-3 eBwqOY">Как это работает</button><button class="sc-eacbfdd0-3 eBwqOY">Преимущества</button><button class="sc-eacbfdd0-3 eBwqOY">Этапы</button><button class="sc-eacbfdd0-3 eBwqOY">Технологии</button></nav></div></div></header><main class="sc-f4bc612e-1 kjnFom"><section id="hero" class="sc-282a9fb7-0 iHsjPR"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-282a9fb7-1 gCyyZM"><div class="sc-282a9fb7-2 lmIqsX"><span class="sc-282a9fb7-3 dgypHz">MODX → современная архитектура</span><h1 class="sc-282a9fb7-4 cSfFWQ">Обновите MODX-сайт<!-- --> <span class="sc-282a9fb7-5 kgOwCO">без остановки бизнеса</span></h1><p class="sc-282a9fb7-6 isNMvS">Постепенный и управляемый перенос вашего сайта на современный стек. Сохраняем SEO, контент и привычную админку — заменяем платформу по частям, с возможностью отката на каждом этапе.</p><ul class="sc-282a9fb7-7 ldpNwf"><li class="sc-282a9fb7-8 jTSvdK">Без потери SEO</li><li class="sc-282a9fb7-8 jTSvdK">Откат на любом этапе</li><li class="sc-282a9fb7-8 jTSvdK">Без простоев</li></ul><div class="sc-282a9fb7-9 clVjCc"><button value="Хочу обсудить перенос сайта" class="sc-a272a755-0 kAoVoo">Обсудить перенос</button><button class="sc-a272a755-0 jpoktI">Как это работает</button></div><dl class="sc-282a9fb7-10 kBMOtG"><div class="sc-282a9fb7-11 eOGWPL"><dt class="sc-282a9fb7-12 gRAxnu">100+</dt><dd class="sc-282a9fb7-13 kfteyy">MODX-проектов за плечами</dd></div><div class="sc-282a9fb7-11 eOGWPL"><dt class="sc-282a9fb7-12 gRAxnu">99.9%</dt><dd class="sc-282a9fb7-13 kfteyy">аптайм при миграции</dd></div><div class="sc-282a9fb7-11 eOGWPL"><dt class="sc-282a9fb7-12 gRAxnu">24/7</dt><dd class="sc-282a9fb7-13 kfteyy">мониторинг и поддержка</dd></div></dl></div><div class="sc-282a9fb7-14 lnpQbY"><img src="/_next/static/media/hero-migration.d51606ec.jpg" alt="Схема постепенного переноса сайта с MODX на современную архитектуру" width="1280" height="960" class="sc-282a9fb7-15 dCVJrs"/></div></div></div></section><section id="problem" class="sc-103171e0-1 jIaQks"><div class="sc-662eb54e-0 hYVOZb"><header class="sc-103171e0-3 wTork"><span class="sc-103171e0-4 ekoKfi">Боль текущего MODX</span><h2 class="sc-103171e0-5 kvbOJr">Сайт работает, но дальше развивать его сложно</h2><p class="sc-103171e0-6 jLiooE">Знакомая картина: проект на MODX живёт годами, в нём накоплены данные, SEO и интеграции. Но любая правка превращается в риск, а полный переезд — в страх потерять трафик и продажи.</p></header><div class="sc-8bd72b73-0 epkDeJ"><article class="sc-8bd72b73-1 kFYRBZ"><h3 class="sc-8bd72b73-2 fscujB">Устаревшие версии MODX и PHP</h3><p class="sc-8bd72b73-3 ddBKhj">Старый Evolution или ранний Revolution, неактуальный PHP, плагины, которые давно никто не обновляет.</p></article><article class="sc-8bd72b73-1 kFYRBZ"><h3 class="sc-8bd72b73-2 fscujB">Хрупкая вёрстка и сборка</h3><p class="sc-8bd72b73-3 ddBKhj">Шаблоны на чанках и сниппетах, ручная сборка ассетов, нет нормального dev-окружения и CI.</p></article><article class="sc-8bd72b73-1 kFYRBZ"><h3 class="sc-8bd72b73-2 fscujB">Страх потерять SEO и трафик</h3><p class="sc-8bd72b73-3 ddBKhj">Переезд «с нуля» рушит URL, мета-теги и индексацию — бизнес теряет лиды на месяцы.</p></article><article class="sc-8bd72b73-1 kFYRBZ"><h3 class="sc-8bd72b73-2 fscujB">Нельзя останавливать продажи</h3><p class="sc-8bd72b73-3 ddBKhj">Сайт приносит выручку каждый день. Полная остановка ради переноса — не вариант.</p></article></div></div></section><section id="how" class="sc-103171e0-0 hPRGIv"><div class="sc-662eb54e-0 hYVOZb"><header class="sc-103171e0-3 wTork"><span class="sc-103171e0-4 ekoKfi">Как мы переносим</span><h2 class="sc-103171e0-5 kvbOJr">Пять управляемых шагов вместо одного большого «прыжка»</h2><p class="sc-103171e0-6 jLiooE">Каждый этап — это отдельный, обратимый шаг. На любом из них можно остановиться, откатиться или пользоваться сайтом дальше — без потери результата уже сделанной работы.</p></header><div class="sc-628866ea-0 bAAMnY"><ol class="sc-628866ea-1 iMsnOe"><li class="sc-628866ea-2 ldUuOE"><span class="sc-628866ea-3 elHacx">01</span><div class="sc-628866ea-4 fWhIDE"><span class="sc-628866ea-5 hrLXYf">Аудит</span><h3 class="sc-628866ea-6 dVoKDA">Аудит и карта переноса</h3><p class="sc-628866ea-7 ehAHRa">Изучаем текущий MODX-проект: версии, шаблоны, плагины, интеграции, структуру URL и SEO. Готовим карту рисков и пошаговый план.</p></div></li><li class="sc-628866ea-2 ldUuOE"><span class="sc-628866ea-3 elHacx">02</span><div class="sc-628866ea-4 fWhIDE"><span class="sc-628866ea-5 hrLXYf">Контейнеризация</span><h3 class="sc-628866ea-6 dVoKDA">Заворачиваем текущий сайт в Docker</h3><p class="sc-628866ea-7 ehAHRa">Поднимаем существующий MODX в контейнерах с фиксированными версиями PHP и БД. Добавляем dev-окружение, бэкапы и CI — без изменения функциональности.</p></div></li><li class="sc-628866ea-2 ldUuOE"><span class="sc-628866ea-3 elHacx">03</span><div class="sc-628866ea-4 fWhIDE"><span class="sc-628866ea-5 hrLXYf">Фронтенд</span><h3 class="sc-628866ea-6 dVoKDA">Параллельный современный фронтенд</h3><p class="sc-628866ea-7 ehAHRa">Поверх MODX подключаем новый фронтенд на современном стеке. MODX остаётся источником данных — фронт постепенно обновляется страница за страницей.</p></div></li><li class="sc-628866ea-2 ldUuOE"><span class="sc-628866ea-3 elHacx">04</span><div class="sc-628866ea-4 fWhIDE"><span class="sc-628866ea-5 hrLXYf">Маршрутизация</span><h3 class="sc-628866ea-6 dVoKDA">Постраничный переезд через edge-роутер</h3><p class="sc-628866ea-7 ehAHRa">Edge-роутер по URL решает: страницу отдаёт старый MODX или новая платформа. Переключаем разделы по одному, с контролем метрик и SEO.</p></div></li><li class="sc-628866ea-2 ldUuOE"><span class="sc-628866ea-3 elHacx">05</span><div class="sc-628866ea-4 fWhIDE"><span class="sc-628866ea-5 hrLXYf">Замена ядра</span><h3 class="sc-628866ea-6 dVoKDA">Постепенная замена платформы</h3><p class="sc-628866ea-7 ehAHRa">Когда все ключевые разделы переведены, MODX выводится из-под нагрузки. Контент и админка переезжают в современный headless-стек.</p></div></li></ol><div class="sc-628866ea-8 gtuJvV"><img src="/_next/static/media/process-pipeline.d35a874c.jpg" alt="Схема пятиэтапного переноса MODX-сайта" loading="lazy" width="1280" height="896" class="sc-628866ea-9 jtmei"/></div></div></div></section><section id="guarantees" class="sc-103171e0-1 jIaQks"><div class="sc-662eb54e-0 hYVOZb"><header class="sc-103171e0-3 wTork"><span class="sc-103171e0-4 ekoKfi">Гарантии</span><h2 class="sc-103171e0-5 kvbOJr">Безопасность бизнеса встроена в процесс</h2><p class="sc-103171e0-6 jLiooE">Мы не «переделываем сайт». Мы выстраиваем процесс, в котором ошибка одного шага не ломает всё остальное.</p></header><div class="sc-d8d7615-0 dsmvKj"><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">⚡</span><h3 class="sc-d8d7615-3 iLcykE">Работа без простоев</h3><p class="sc-d8d7615-4 jrhKUA">Сайт остаётся в онлайне на каждом шаге. Все изменения выкатываются через стенды и постепенный переключатель трафика.</p></article><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">🔍</span><h3 class="sc-d8d7615-3 iLcykE">Сохранение SEO и URL</h3><p class="sc-d8d7615-4 jrhKUA">Структура URL, мета-теги, sitemap и микроразметка переносятся 1:1. Редиректы и канонические ссылки — под контролем.</p></article><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">↩︎</span><h3 class="sc-d8d7615-3 iLcykE">Откат на любом этапе</h3><p class="sc-d8d7615-4 jrhKUA">Каждый шаг изолирован: версии в git, инфраструктура в коде, переключение трафика обратимо за минуты.</p></article><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">◎</span><h3 class="sc-d8d7615-3 iLcykE">Прозрачный процесс</h3><p class="sc-d8d7615-4 jrhKUA">План, задачи и метрики переноса открыты. Вы видите, что и зачем меняется на каждом шаге.</p></article><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">✎</span><h3 class="sc-d8d7615-3 iLcykE">Знакомая работа с контентом</h3><p class="sc-d8d7615-4 jrhKUA">Редакторы продолжают работать в привычной админке, пока мы переводим её на современный headless-инструмент.</p></article><article class="sc-d8d7615-1 lxYdw"><span aria-hidden="true" class="sc-d8d7615-2 dowUqJ">⛁</span><h3 class="sc-d8d7615-3 iLcykE">Сохранность данных</h3><p class="sc-d8d7615-4 jrhKUA">Регулярные бэкапы БД и файлов, миграции под контролем версий, никаких разовых ручных «правок прямо в проде».</p></article></div></div></section><section id="tech" class="sc-103171e0-2 lmZUTs"><div class="sc-662eb54e-0 hYVOZb"><header class="sc-103171e0-3 wTork"><span class="sc-103171e0-4 ekoKfi">Технологии</span><h2 style="color:inherit" class="sc-103171e0-5 kvbOJr">Современный стек, но без религии вокруг него</h2><p style="color:inherit;opacity:0.75" class="sc-103171e0-6 jLiooE">Мы подбираем инструменты под задачи переноса, а не наоборот. Стек ниже — типовой набор, который мы используем чаще всего.</p></header><div class="sc-9647a4ca-0 lotFRg"><article class="sc-9647a4ca-1 dOpRUR"><h3 class="sc-9647a4ca-2 dPDBdR">Инфраструктура</h3><p class="sc-9647a4ca-3 jHDtfv">Изолированные окружения и предсказуемые выкаты для текущего MODX и новой платформы.</p><ul class="sc-9647a4ca-4 gMQRxQ"><li class="sc-9647a4ca-5 kErGcs">Docker</li><li class="sc-9647a4ca-5 kErGcs">Docker Compose</li><li class="sc-9647a4ca-5 kErGcs">Nginx / Traefik</li></ul></article><article class="sc-9647a4ca-1 dOpRUR"><h3 class="sc-9647a4ca-2 dPDBdR">Фронтенд</h3><p class="sc-9647a4ca-3 jHDtfv">Новый слой поверх MODX: быстрый, SEO-дружелюбный, с постраничным контролем.</p><ul class="sc-9647a4ca-4 gMQRxQ"><li class="sc-9647a4ca-5 kErGcs">React</li><li class="sc-9647a4ca-5 kErGcs">Next.js</li><li class="sc-9647a4ca-5 kErGcs">Apollo-Client</li><li class="sc-9647a4ca-5 kErGcs">TypeScript</li></ul></article><article class="sc-9647a4ca-1 dOpRUR"><h3 class="sc-9647a4ca-2 dPDBdR">Бэкенд и контент</h3><p class="sc-9647a4ca-3 jHDtfv">Постепенный уход от монолита MODX к headless-источнику данных.</p><ul class="sc-9647a4ca-4 gMQRxQ"><li class="sc-9647a4ca-5 kErGcs">Node.js</li><li class="sc-9647a4ca-5 kErGcs">REST / GraphQL API</li><li class="sc-9647a4ca-5 kErGcs">Headless CMS</li><li class="sc-9647a4ca-5 kErGcs">PostgreSQL</li></ul></article><article class="sc-9647a4ca-1 dOpRUR"><h3 class="sc-9647a4ca-2 dPDBdR">Наблюдаемость</h3><p class="sc-9647a4ca-3 jHDtfv">Контролируем переезд по метрикам, а не «на глаз».</p><ul class="sc-9647a4ca-4 gMQRxQ"><li class="sc-9647a4ca-5 kErGcs">Метрики аптайма</li><li class="sc-9647a4ca-5 kErGcs">Логи запросов</li><li class="sc-9647a4ca-5 kErGcs">Мониторинг SEO</li><li class="sc-9647a4ca-5 kErGcs">A/B по URL</li></ul></article></div></div></section><section id="contacts" class="sc-103171e0-0 hPRGIv"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-2b699fd6-0 dvQpSG"><div class="sc-2b699fd6-1 kJGpxE"><span class="sc-2b699fd6-2 krIWgE">Следующий шаг</span><h2 class="sc-2b699fd6-3 gVLtWV">Начните с аудита — без обязательств перенести всё сразу</h2><p class="sc-2b699fd6-4 fVCkuA">Покажем карту переноса именно вашего MODX-проекта: что менять в первую очередь, что можно оставить, где основные риски и сколько займёт каждый шаг.</p><div class="sc-2b699fd6-8 ftFHis"><button value="Хочу заказать аудит сайта" class="sc-a272a755-0 kAoVoo">Запросить аудит</button></div><p class="sc-2b699fd6-9 euOFQN">Ответим в течение одного рабочего дня. NDA — по запросу.</p></div><div class="sc-2b699fd6-5 iPwZaE"><ul class="sc-2b699fd6-6 kShAtj"><li class="sc-2b699fd6-7 kmOsuq">Карта рисков по текущему MODX</li><li class="sc-2b699fd6-7 kmOsuq">Пошаговый план переноса под ваш бизнес</li><li class="sc-2b699fd6-7 kmOsuq">Оценка сроков и стоимости каждого этапа</li></ul></div></div></div></section></main><footer class="sc-89852380-0 WqhEl"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-89852380-1 jEHcw"><div class="sc-89852380-2 eyEcVI"><div class="sc-89852380-3 kUEDSr">modx.club</div><p class="sc-89852380-4 gPSvII">Управляемая модернизация сайтов на MODX: контейнеризация, параллельный фронтенд, постепенная замена платформы без простоев и потери SEO.</p></div><div class="sc-89852380-5 jfePnv"><div class="sc-89852380-6 gCwzqo">Продукт</div><div class="sc-89852380-8 cywUAt"><button class="sc-89852380-7 dNSPbk">Как это работает</button><button class="sc-89852380-7 dNSPbk">Этапы переноса</button><button class="sc-89852380-7 dNSPbk">Технологии</button><button class="sc-89852380-7 dNSPbk">Гарантии</button></div></div><div class="sc-89852380-5 jfePnv"><div class="sc-89852380-6 gCwzqo">Компания</div><div class="sc-89852380-8 cywUAt"><button class="sc-89852380-7 dNSPbk">О нас</button><button class="sc-89852380-7 dNSPbk">Кейсы</button><button class="sc-89852380-7 dNSPbk">Контакты</button></div></div><div class="sc-89852380-5 jfePnv"><div class="sc-89852380-6 gCwzqo">Ресурсы</div><div class="sc-89852380-8 cywUAt"><button class="sc-89852380-7 dNSPbk">План переноса</button><button class="sc-89852380-7 dNSPbk">FAQ</button></div></div></div><div class="sc-89852380-9 bUhqdH"><span>© 2026 modx.club — Безопасная модернизация MODX-сайтов</span><span>Made for safe MODX modernization</span></div></div></footer></div><div class="sc-1df77d2-0 ewjXdS"><button type="button" class="sc-1df77d2-18 uiOMH"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"initialApolloState":{},"origin":"http://localhost:3000"}},"page":"/","query":{},"buildId":"FncaFOGxoZol8zeafCNtr","isFallback":false,"isExperimentalCompile":false,"appGip":true,"scriptLoader":[]}</script></body></html>

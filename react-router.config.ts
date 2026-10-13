@@ -1,16 +1,10 @@
 import type { Config } from '@react-router/dev/config'
-export default {
+import pages from './app/Custom/content/index.json'
+const config: Config = {
   ssr: true,
-  prerender: [
-    '/',
-    '/solutions',
-    '/blog',
-    '/blog/two-protocols-one-development-loop',
-    '/blog/open-to-bots-closed-to-abuse',
-    '/blog/the-tests-passed-which-tests',
-    '/blog/eighteen-hours-a-real-portal-in-production',
-    '/blog/a-small-site-and-the-limits-we-found',
-    '/blog/one-server-two-modes-and-an-api',
-  ],
+  prerender: pages.map((page) =>
+    page.path.replace(/\?page=(\d+)$/, '/page/$1'),
+  ),
   routeDiscovery: { mode: 'initial' },
-} satisfies Config
+}
+export { config as default }

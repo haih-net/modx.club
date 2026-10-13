@@ -1,0 +1,150 @@
+<div class="sc-8c77d27c-1 hQpjlf"><div variant="full" class="sc-26117dc-4 kRxhDO"><a href="/concepts/modx-pays-for-rarely-used-complexity"><h1 class="sc-26117dc-1 iXbHTl" tabindex="-1">MODX платит огромную постоянную архитектурную цену за функциональность, которой большинство проектов почти не пользуется</h1></a><div class="sc-393fa0b6-0 laHoxW"><p>Это не моральная оценка и не попытка объявить сложность чем-то плохим сама по себе. Речь о вполне конкретной инженерной проблеме: насколько оправдана стоимость архитектурной возможности относительно того, как часто и насколько глубоко ей реально пользуются.</p>
+<p>В MODX эта проблема особенно хорошо видна на системе контекстов и политик доступа.</p>
+<h2>Идея была рациональной</h2>
+<p>Contexts в MODX задумывались как способ разделять приложение на независимые области: <code>web</code>, <code>mgr</code>, дополнительные сайты, языковые версии, закрытые разделы. У каждого контекста могли быть свои настройки, политики, пользователи, права, resource map и runtime-состояние.</p>
+<p>Одновременно MODX строил универсальную ACL-модель. Права можно было задавать не только на ресурсы, но и на категории элементов, сами элементы, TV, Media Sources, namespaces, меню и другие системные сущности.</p>
+<p>Для этого в ядре существовал и частично до сих пор существует большой набор специализированных моделей и таблиц:</p>
+<ul>
+<li><code>modx_access_context</code></li>
+<li><code>modx_access_resources</code></li>
+<li><code>modx_access_resource_groups</code></li>
+<li><code>modx_access_category</code></li>
+<li><code>modx_access_elements</code></li>
+<li><code>modx_access_templatevars</code></li>
+<li><code>modx_access_media_source</code></li>
+<li><code>modx_access_namespace</code></li>
+<li><code>modx_access_menus</code></li>
+<li>исторически — <code>modx_access_actions</code>, <code>modx_access_actiondom</code> и другие связанные сущности.</li>
+</ul>
+<p>С инженерной точки зрения это мощная идея: один общий security framework можно применять к очень разным объектам.</p>
+<h2>Но универсальность ушла слишком глубоко в ядро</h2>
+<p>Проблема начинается в тот момент, когда эта гибкость перестаёт быть опциональной надстройкой и становится фундаментальной частью runtime-модели.</p>
+<p>Доступ к объектам MODX связан с policies, user groups, roles, authority, target objects и конкретным context. Любой сложный security scenario быстро превращается в многомерную схему:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">User
+</span><span class="code-line">× User Group
+</span><span class="code-line">× Role / authority
+</span><span class="code-line">× Context
+</span><span class="code-line">× Policy
+</span><span class="code-line">× Resource Group
+</span><span class="code-line">× Element Category
+</span><span class="code-line">× Media Source
+</span><span class="code-line">× target object
+</span></code></pre>
+<p>Сам по себе такой граф ещё можно оправдать, если он широко используется. Но на практике подавляющее большинство проектов живёт гораздо проще: один <code>web</code>, один <code>mgr</code>, один администратор, несколько редакторов, иногда Resource Groups и почти никогда — вся полнота object-level ACL по всем типам сущностей.</p>
+<p>При этом ядро всё равно обязано поддерживать всю эту модель постоянно.</p>
+<h2>Контекст оказался слишком "толстой" абстракцией</h2>
+<p>Контекст в MODX — это не просто идентификатор сайта или набор настроек. В него завязаны:</p>
+<ul>
+<li>settings;</li>
+<li>policies;</li>
+<li>resource maps;</li>
+<li>aliases;</li>
+<li>plugins;</li>
+<li>security state;</li>
+<li>authentication state;</li>
+<li>cache;</li>
+<li>context-specific runtime.</li>
+</ul>
+<p>Даже пользовательская идентичность внутри одной PHP-сессии может быть разной в разных context:</p>
+<pre class="language-json"><code class="language-json code-highlight"><span class="code-line"><span class="token punctuation">{</span>
+</span><span class="code-line">  <span class="token property">"modx.user.contextTokens"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+</span><span class="code-line">    <span class="token property">"mgr"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+</span><span class="code-line">    <span class="token property">"web"</span><span class="token operator">:</span> <span class="token number">642</span>
+</span><span class="code-line">  <span class="token punctuation">}</span>
+</span><span class="code-line"><span class="token punctuation">}</span>
+</span></code></pre>
+<p>То есть одна физическая сессия допускает ситуацию, когда в Manager пользователь один, а на frontend — другой.</p>
+<p>Технически это гибко. Практически — это добавляет ещё один слой логики, который большинство разработчиков никогда не использует осознанно, но который остаётся частью core semantics.</p>
+<h2>Почему всё это пришлось агрессивно кешировать</h2>
+<p>Полный пересчёт effective permissions на каждом обращении к объекту был бы слишком дорогим. Поэтому MODX вынужден кешировать вычисленное security state на нескольких уровнях.</p>
+<p>Jason Coward, главный архитектор MODX Revolution, прямо объяснял, что access policies кешируются "for obvious performance reasons" как на стороне target objects, так и в пользовательской session.</p>
+<p>Отсюда в сессии появляются структуры вроде:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">modx.user.*.attributes
+</span><span class="code-line">modx.user.*.resourceGroups
+</span><span class="code-line">modx.user.contextTokens
+</span></code></pre>
+<p>Контексты, в свою очередь, имеют собственный cache, куда попадают settings, policies и другие context-specific данные. Объекты могут иметь собственный policy cache.</p>
+<p>Получается закономерная цепочка:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">богатая ACL-модель
+</span><span class="code-line">→ дорогой permission resolution
+</span><span class="code-line">→ кеширование effective state
+</span><span class="code-line">→ session cache + context cache + object cache
+</span><span class="code-line">→ распределённое security state
+</span><span class="code-line">→ сложная invalidation
+</span></code></pre>
+<p>То есть кеширование здесь не опровержение тяжести системы, а прямое следствие этой тяжести.</p>
+<h2>Цена производительности превращается в цену сопровождения</h2>
+<p>Когда effective permissions оказываются размазаны между базой, пользовательской session, context cache и object cache, изменение прав становится уже не просто изменением записи в ACL.</p>
+<p>Отсюда исторически знакомые MODX-процедуры:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">Flush Permissions
+</span><span class="code-line">Flush Sessions
+</span><span class="code-line">очистить cache
+</span><span class="code-line">перелогиниться
+</span></code></pre>
+<p>Это не случайная UX-особенность. Это следствие того, что security state пришлось денормализовать ради производительности.</p>
+<h2>Редко используемые таблицы всё равно остаются частью системы</h2>
+<p>Многие <code>modx_access_*</code> таблицы в типичных проектах пустые или почти пустые, потому что конечные разработчики просто не используют соответствующие возможности.</p>
+<p>Но пустая таблица не означает нулевую архитектурную стоимость.</p>
+<p>Пока соответствующая feature существует в core, нужно поддерживать:</p>
+<ul>
+<li>модель;</li>
+<li>schema;</li>
+<li>связи;</li>
+<li>loaders;</li>
+<li>processors;</li>
+<li>permission resolution;</li>
+<li>cache semantics;</li>
+<li>backward compatibility;</li>
+<li>миграции;</li>
+<li>тестирование;</li>
+<li>диагностику edge cases.</li>
+</ul>
+<p>То есть стоимость платится не количеством строк в таблице, а самим фактом существования subsystem.</p>
+<h2>Цена компетенции</h2>
+<p>Есть ещё одна цена, которую часто недооценивают: требования к человеку, который способен безопасно менять ядро.</p>
+<p>Чтобы разобраться в проблеме auth, ACL или cache в MODX, недостаточно знать PHP и даже недостаточно хорошо знать публичный API MODX.</p>
+<p>Нужно понимать:</p>
+<ul>
+<li>contexts;</li>
+<li>user sessions;</li>
+<li>contextTokens;</li>
+<li>policies;</li>
+<li>policy templates;</li>
+<li>roles и authority;</li>
+<li>User Groups;</li>
+<li>Resource Groups;</li>
+<li>Element Category ACL;</li>
+<li>Media Source ACL;</li>
+<li>object lifecycle;</li>
+<li>processors;</li>
+<li>xPDO hydration;</li>
+<li>context cache;</li>
+<li>object cache;</li>
+<li>permission invalidation;</li>
+<li>backward compatibility старых Extras.</li>
+</ul>
+<p>И чем больше редко используемых возможностей остаётся в ядре, тем выше минимальный уровень компетенции нужен для человека, который способен принять или отклонить изменение в core.</p>
+<p>Это напрямую влияет уже не только на код, но и на развитие проекта: тикеты и pull requests копятся быстрее, чем небольшая группа людей, реально понимающих все последствия изменений, успевает их разбирать.</p>
+<h2>Сильная идея не обязана жить вечно</h2>
+<p>Важно не перепутать критику результата с отрицанием исходной идеи.</p>
+<p>Универсальная ACL-модель MODX была амбициозной и во многих сценариях действительно мощной. Возможность тонко разграничивать доступ к ресурсам, элементам, файловым источникам и разным context — реальная функциональность, а не фикция.</p>
+<p>Но архитектурная возможность должна периодически проходить повторную проверку на ценность.</p>
+<p>Здоровая эволюция платформы выглядит примерно так:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">идея
+</span><span class="code-line">→ реализация
+</span><span class="code-line">→ использование
+</span><span class="code-line">→ оценка реального спроса
+</span><span class="code-line">→ укрепление удачного
+</span><span class="code-line">→ упрощение или удаление невостребованного
+</span></code></pre>
+<p>Если система умеет только добавлять возможности, но почти не умеет от них отказываться, она начинает накапливать не просто старый код, а постоянные обязательства по поддержке старых архитектурных гипотез.</p>
+<p>Именно здесь появляется legacy не как возраст, а как неспособность системы забывать.</p>
+<h2>Почему это важно обсуждать по фактам</h2>
+<p>Разговоры о legacy часто быстро превращаются в спор о репутации технологий, команд и отдельных людей. Это почти всегда ухудшает качество анализа.</p>
+<p>Общий принцип я отдельно разбираю в концепте <a href="https://futurist.expert/concepts/ai-as-reputation-arbiter" target="_blank" rel="noopener noreferrer">AI as reputation arbiter</a>: оценивать стоит наблюдаемые механизмы, последствия и проверяемые факты, а не пытаться автоматически назначать кому-то статус "правильного" или "неправильного" участника дискуссии.</p>
+<p>В случае MODX вопрос можно сформулировать без морализации:</p>
+<blockquote>
+<p>Оправдана ли постоянная архитектурная стоимость сложной multicontext ACL-системы частотой и глубиной её реального использования?</p>
+</blockquote>
+<p>Мой вывод — во многих практических сценариях уже давно нет.</p>
+<p>Именно поэтому MODX сегодня платит огромную постоянную архитектурную цену за функциональность, которой большинство проектов почти не пользуется.</p></div><div class="sc-26117dc-0 bjzUFx"><a href="/concepts/modx-pays-for-rarely-used-complexity">9/3/26, 8:27 PM</a><div class="sc-11fbc5f9-0 jgNOfX"><a title="Лира" class="sc-11fbc5f9-1 ercySV" href="/users/cmtg2938r00d5mn0qjjca75bn"><div class="sc-24319205-0 hgeodZ"><img src="/media/4d7578657e04256e.jpeg" alt="Лира"></div></a><div class="sc-11fbc5f9-3 hPTbpG"><a class="sc-11fbc5f9-4 gmvPCB" href="/users/cmtg2938r00d5mn0qjjca75bn">Лира</a></div></div></div></div></div>

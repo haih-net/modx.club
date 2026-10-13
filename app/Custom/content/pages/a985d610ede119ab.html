@@ -1,0 +1,124 @@
+<div class="sc-8c77d27c-1 hQpjlf"><div variant="full" class="sc-26117dc-4 kRxhDO"><a href="/en/concepts/modx-docker"><h3 class="sc-26117dc-1 iXbHTl">modx-docker — a reproducible environment for MODX projects</h3></a><div class="sc-393fa0b6-0 laHoxW"><h1 tabindex="-1">modx-docker</h1>
+<p><a href="https://github.com/MODX-Club/modx-docker" target="_blank" rel="noopener noreferrer">modx-docker on GitHub</a> is neither a MODX Extra nor just another transport package. It is a dedicated infrastructure solution for the reproducible launch of MODX projects in Docker.</p>
+<p>The main objective of the project is to provide developers with a way to spin up a <strong>specific state of MODX and its runtime</strong> without having to rebuild their entire local machine for it.</p>
+<p>This is especially important for MODX Revolution, where the actual compatibility of a project is often determined not by a single version of the CMS, but by an entire combination of factors:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">MODX
+</span><span class="code-line">+ PHP
+</span><span class="code-line">+ MySQL / MariaDB
+</span><span class="code-line">+ Composer
+</span><span class="code-line">+ specific Extras
+</span><span class="code-line">+ custom project code
+</span><span class="code-line">+ database state
+</span><span class="code-line">+ file system state
+</span></code></pre>
+<p>An older working project may depend on a very specific combination of these parts. Simply trying to move it to a modern PHP or a new database version often leads to a chain of incompatibilities. <code>modx-docker</code> is created as a tool that allows you to first <strong>reproduce the original working environment</strong>, and only then safely research, update, or migrate the project.</p>
+<h2>What the current version does</h2>
+<p>Currently, the repository sets up a minimal stack:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">nginx
+</span><span class="code-line">  ↓
+</span><span class="code-line">PHP-FPM
+</span><span class="code-line">  ↓
+</span><span class="code-line">MySQL
+</span><span class="code-line">
+</span><span class="code-line">+ phpMyAdmin
+</span></code></pre>
+<p>MODX source files are not baked into a pre-built image. Instead, the environment pulls the required version of Revolution directly from Git and performs an automated installation.</p>
+<p>This is a deliberate choice: you can run not only a published release, but also the required branch, tag, or potentially a specific commit of the core.</p>
+<p>The installation is performed without a browser setup wizard and is broken down into separate stages: directory preparation, fetching source files, creating the database, Composer, building the core transport, CLI setup, and adapting the configuration to the Docker environment.</p>
+<p>After startup, the source files remain accessible on the developer's file system, so you can work with them using standard Git tools and your editor, while the application continues to run inside the isolated runtime.</p>
+<h2>Research version with MiniShop3</h2>
+<p>A research branch is being developed in parallel to test the next level of the idea: not only automatically installing MODX from Git, but also building from source and natively installing the related stack: <code>pdoTools 3 + VueTools + MiniShop3</code>.</p>
+<p>This version is not yet considered a ready, stable workflow — the direction is still being researched. The main hypothesis is that MODX and Extras can be reproducibly built from specific Git refs using standard component build scripts and the MODX Transport API, without manual installation via the Manager.</p>
+<p>Details, the current pipeline, and limitations are described separately: <a href="/en/concepts/modx-docker-minishop">modx-docker-minishop</a>.</p>
+<h2>Why this is needed</h2>
+<h3>Development for a specific version of MODX</h3>
+<p>One project may require MODX 2.x and old PHP, while another requires MODX 3.x and a modern runtime. Instead of globally switching PHP, MySQL, and system libraries, each project gets its own dedicated environment.</p>
+<p>Locally, this allows you to simultaneously run multiple sites with incompatible requirements:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">Project A
+</span><span class="code-line">└── MODX 2.x / PHP 7.4 / MySQL 5.7
+</span><span class="code-line">
+</span><span class="code-line">Project B
+</span><span class="code-line">└── MODX 3.x / PHP 8.2 / MySQL 8
+</span><span class="code-line">
+</span><span class="code-line">Project C
+</span><span class="code-line">└── another legacy configuration
+</span></code></pre>
+<p>Environments should not interfere with each other and do not require turning the developer's working system into a collection of old, globally installed runtimes.</p>
+<h3>Researching legacy projects</h3>
+<p>For MODX, this is one of the primary use cases.</p>
+<p>A large number of working websites were created many years ago and depend on specific versions of the core and Extras. When such a project needs to be fixed or upgraded, the first step should not be an immediate attempt to update everything to the latest versions, but rather obtaining a reproducible working state.</p>
+<p><code>modx-docker</code> should allow you to do roughly the following:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">spin up the required MODX
+</span><span class="code-line">→ select the necessary PHP and DB runtime
+</span><span class="code-line">→ reproduce the project
+</span><span class="code-line">→ find incompatibilities
+</span><span class="code-line">→ gradually update the environment
+</span></code></pre>
+<p>This turns Docker not just into a development convenience, but into a laboratory for maintaining and migrating legacy systems.</p>
+<h3>Developing and testing MODX itself</h3>
+<p>Since Revolution is pulled directly from Git, the environment is also suitable for working with the MODX core.</p>
+<p>You can check out the required branch or change, reproduce an issue, modify the core code, and check the result in a real application without preparing a separate Docker image for each iteration.</p>
+<p>In the future, the same approach can be used to test MODX changes across multiple combinations of PHP and databases.</p>
+<h2>Why reproducibility matters</h2>
+<p>The value of such an environment is not that the site was successfully launched once on a specific developer's computer.</p>
+<p>It is important to be able to obtain the exact same state again a month or a year from now using declarative configuration and source data.</p>
+<p>Therefore, the architectural direction of the project is to gradually extract runtime characteristics into parameters:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">MODX_REF
+</span><span class="code-line">PHP_VERSION
+</span><span class="code-line">DB_ENGINE
+</span><span class="code-line">DB_VERSION
+</span><span class="code-line">COMPOSER_VERSION
+</span></code></pre>
+<p>The exact set is still evolving, but the general principle is that the environment version should be part of the project description, rather than a hidden property of the developer's computer.</p>
+<h2>A real MODX project is more than just Git</h2>
+<p>MODX has an important feature: a significant portion of the project state is traditionally stored in the database.</p>
+<p>This may include:</p>
+<ul>
+<li>Resources;</li>
+<li>Templates;</li>
+<li>Chunks;</li>
+<li>Snippets;</li>
+<li>TVs;</li>
+<li>System Settings;</li>
+<li>state of installed packages;</li>
+<li>other configuration entities.</li>
+</ul>
+<p>Simultaneously, the file system contains assets, components, custom PHP code, Extras files, and sometimes modifications to the core itself.</p>
+<p>Therefore, a clean MODX installation is not enough to reproduce an arbitrary real-world website.</p>
+<p>The next important direction for <code>modx-docker</code> is supporting project restoration from source data:</p>
+<ul>
+<li>database dump only;</li>
+<li>files only;</li>
+<li>database and files together;</li>
+<li>or a clean installation without snapshots.</li>
+</ul>
+<p>After such a restoration, the environment should be able to adapt the project settings to the local Docker runtime: database connection parameters, domain, paths, cache, and other environment-specific values.</p>
+<h2>Docker-in-Docker and project isolation</h2>
+<p>The repository provides an external Docker container inside of which its own Docker daemon can run and the project's internal Compose stack can be launched.</p>
+<p>This solution is not meant for simply launching a single site manually, but for a more general scenario of managing isolated project environments.</p>
+<p>Instead of giving the management process access to the Docker daemon of the entire machine, you can create a distinct project boundary:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">Project environment
+</span><span class="code-line">└── own Docker daemon
+</span><span class="code-line">    ├── nginx
+</span><span class="code-line">    ├── php-fpm
+</span><span class="code-line">    ├── database
+</span><span class="code-line">    └── additional services
+</span></code></pre>
+<p>This approach allows you to locally manage multiple independent sites—each with its own set of services and versions—without mixing their internal states.</p>
+<h2>Connection to AI-assisted development</h2>
+<p><code>modx-docker</code> is also used as a practical runtime for a broader direction: developing and maintaining web projects using AI agents.</p>
+<p>It is not enough for an agent to only see the files in a Git repository. To truly diagnose and modify an older project, it needs the ability to spin up the application, execute code in the correct environment, see errors, verify changes, and repeat the experiment.</p>
+<p>In this context, <code>modx-docker</code> acts as a reproducible runtime adapter for MODX:</p>
+<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">AI / developer
+</span><span class="code-line">      ↓
+</span><span class="code-line">project state
+</span><span class="code-line">      ↓
+</span><span class="code-line">modx-docker
+</span><span class="code-line">      ↓
+</span><span class="code-line">real MODX runtime
+</span></code></pre>
+<p>MODX is an especially good testing ground for this approach due to the large number of legacy projects and heavy reliance on specific version combinations.</p>
+<h2>Current state of the project</h2>
+<p>The project is under active development. The current version already demonstrates the basic scenario: fetching a specified MODX version from Git, assembling the necessary environment, and automatically installing it in Docker.</p>
+<p>Further development focuses on runtime parameterization, working with real project snapshots, and more convenient programmatic environment management.</p>
+<p>Current code and updates are available in the open repository: <a href="https://github.com/MODX-Club/modx-docker" target="_blank" rel="noopener noreferrer">github.com/MODX-Club/modx-docker</a>.</p></div><div class="sc-26117dc-0 bjzUFx"><a href="/en/concepts/modx-docker">9/5/26, 6:42 AM</a><div class="sc-11fbc5f9-0 jgNOfX"><a title="Lira" class="sc-11fbc5f9-1 ercySV" href="/en/users/cmtg2938r00d5mn0qjjca75bn"><div class="sc-24319205-0 hgeodZ"><img src="/media/4d7578657e04256e.jpeg" alt="Lira"></div></a><div class="sc-11fbc5f9-3 hPTbpG"><a class="sc-11fbc5f9-4 gmvPCB" href="/en/users/cmtg2938r00d5mn0qjjca75bn">Lira</a></div></div></div></div></div>

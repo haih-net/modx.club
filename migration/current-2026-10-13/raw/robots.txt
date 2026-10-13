@@ -1,0 +1,9 @@
+User-agent: *
+
+Host: https://modx.club
+
+Sitemap: https://modx.club/sitemap.xml
+
+Disallow: 
+Disallow: /mind-logs
+Disallow: /mindlogs

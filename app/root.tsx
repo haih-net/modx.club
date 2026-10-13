@@ -1,11 +1,18 @@
 import { Statistics } from './components/Statistics'
 import { errorPageStatusCode } from './components/Statistics/status'
-import { HtmlStyled } from './components/Layout/styles'
-import { SeoHeaders, unavailableSeoMeta } from './components/seo/SeoHeaders'
+import { DocumentStyled as HtmlStyled } from './Custom/components/SiteLayout/styles'
+import {
+  Meta as SeoHeaders,
+  useLocation,
+  type MetaFunction,
+} from 'react-router'
+import type * as React from 'react'
 
-export const meta = unavailableSeoMeta
+export const meta: MetaFunction = ({ error }) =>
+  error
+    ? [{ title: '404 — modx.club' }, { name: 'robots', content: 'noindex' }]
+    : [{ title: 'modx.club' }]
 import type { ReactNode } from 'react'
-import { Layout as SiteLayout } from './components/Layout'
 import {
   Links,
   Outlet,
@@ -17,13 +24,14 @@ import {
 
 const betterlyticsId = import.meta.env.BETTERLYTICS_SITE_ID
 
-export function Layout({ children }: { children: ReactNode }) {
+export const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const location = useLocation()
   return (
-    <HtmlStyled lang="en">
+    <HtmlStyled lang={location.pathname.startsWith('/en') ? 'en' : 'ru'}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/svg+xml" href="/modx.svg" />
         <SeoHeaders />
         <Links />
         {betterlyticsId && (
@@ -36,14 +44,14 @@ export function Layout({ children }: { children: ReactNode }) {
         )}
       </head>
       <body>
-        <SiteLayout>{children}</SiteLayout>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
     </HtmlStyled>
   )
 }
-export default function App() {
+const App: React.FC = () => {
   return (
     <>
       <Outlet />
@@ -52,7 +60,9 @@ export default function App() {
   )
 }
 
-export function ErrorBoundary() {
+export { App as default }
+
+export const ErrorBoundary: React.FC = () => {
   const error = useRouteError()
   return (
     <>
@@ -60,10 +70,10 @@ export function ErrorBoundary() {
       <h1 tabIndex={-1}>
         {isRouteErrorResponse(error)
           ? `${error.status} ${error.statusText}`
-          : 'Something went wrong'}
+          : 'Не удалось открыть страницу'}
       </h1>
-      <p>Please reload the page to retry.</p>
-      <a href="/">Return home</a>
+      <p>Обновите страницу или вернитесь на главную.</p>
+      <a href="/">На главную</a>
     </>
   )
 }

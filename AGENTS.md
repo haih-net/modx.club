@@ -165,3 +165,11 @@ Record implemented decisions, their motivating needs, known limitations, and rep
 Use focused commits for coherent changes and versioned releases for reproducible milestones when requested as part of the workflow. Do not publish, deploy, or create remote releases merely because a local build succeeds.
 
 Gradually turn verified implementation knowledge into English Solution pages. Keep documentation proportional to the project's current complexity.
+
+## Перенос modx.club — 13 октября 2026
+
+Поручение владельца: сохранить оформление и все публичные страницы актуальной
+версии http://localhost:3000, включая sitemap и концепты. Содержание хранится
+в файлах, база и ИИ-агент не подключаются. Кнопки агента временно закомментированы
+с пояснением. Сохраняются обе существующие языковые версии. Новые комментарии
+и документация — на русском. Работа только локальная, без публикации.

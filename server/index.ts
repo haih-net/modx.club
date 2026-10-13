@@ -79,7 +79,13 @@ async function startServer() {
   } else {
     // Production: serve static files and prebuilt SSR bundle
     const sirv = (await import('sirv')).default
-    app.use(sirv('build/client', { extensions: [] }))
+    const staticFiles = sirv('build/client', { extensions: [] })
+    app.use((req, res, next) => {
+      // Пагинация хранится в файлах; запросы с page должны получить свой снимок, а не первый каталог.
+      if (new URL(req.url, 'http://localhost').searchParams.has('page'))
+        return next()
+      return staticFiles(req, res, next)
+    })
 
     const buildUrl: string = pathToFileURL(
       resolve('build/server/index.js'),
