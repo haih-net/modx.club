@@ -1,8 +1,7 @@
 import type * as React from 'react'
 import type { PageData } from '../../interfaces'
-import { SiteLayout } from '../../components/SiteLayout'
 export const StaticPage: React.FC<PageData> = ({ page, html }) => (
-  <SiteLayout page={page}>
+  <>
     <div data-fragment="content" dangerouslySetInnerHTML={{ __html: html }} />
     <script
       type="application/ld+json"
@@ -47,5 +46,5 @@ export const StaticPage: React.FC<PageData> = ({ page, html }) => (
         }}
       />
     ))}
-  </SiteLayout>
+  </>
 )

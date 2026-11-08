@@ -1,24 +1,22 @@
-import type { MetaFunction } from 'react-router'
-import { createSeoMeta, unavailableSeoMeta } from '../components/seo/SeoHeaders'
-import type { SeoHandle } from '../components/seo/SeoHeaders'
-import MainPage from '../pages/MainPage'
-import delivery from '../pages/MainPage/Hero/delivery.webp'
-import { site } from '../components/seo/site'
+import type * as React from 'react'
+import { useLoaderData, type MetaFunction } from 'react-router'
+import { findPage } from '../Custom/content/pages.server'
+import { StaticPage } from '../Custom/pages/StaticPage'
+import type { PageData } from '../Custom/interfaces'
+import { pageMeta } from '../Custom/seo'
 
-export const handle = {
-  seo: {
-    title: 'HAIH — Building websites with AI, from requirements',
-    description: site.description,
-    path: '/',
-    image: {
-      src: delivery,
-      alt: 'A conceptual illustration of the HAIH website delivery architecture.',
-      width: 1200,
-      height: 800,
-    },
-  },
-} satisfies SeoHandle
+export const loader = (): PageData => {
+  const page = findPage('/')
+  if (!page) {
+    throw new Response('Страница не найдена', { status: 404 })
+  }
+  return page
+}
 
-export const meta: MetaFunction = ({ error }) =>
-  error ? unavailableSeoMeta() : createSeoMeta(handle.seo)
-export default MainPage
+export const meta: MetaFunction<typeof loader> = ({ loaderData, error }) =>
+  pageMeta(error ? undefined : loaderData)
+
+const HomePage: React.FC = () => (
+  <StaticPage {...useLoaderData<typeof loader>()} />
+)
+export { HomePage as default }

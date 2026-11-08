@@ -18,3 +18,8 @@ export interface PageData {
   page: StaticPage
   html: string
 }
+
+export type SiteLayoutData = Pick<
+  StaticPage,
+  'locale' | 'header' | 'footer' | 'mainClass' | 'shellClass' | 'outerClass'
+>

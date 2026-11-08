@@ -1,11 +1,9 @@
 import type * as React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import type { StaticPage } from '../../interfaces'
+import { siteLayout as page } from './data'
 
-export const SiteLayout: React.FC<
-  React.PropsWithChildren<{ page: StaticPage }>
-> = ({ page, children }) => {
+export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate()
   const location = useLocation()
   const [open, setOpen] = useState(false)
@@ -80,7 +78,7 @@ export const SiteLayout: React.FC<
           ? 'Закрыть меню'
           : 'Открыть меню',
     )
-  }, [open, page.locale])
+  }, [open])
   return (
     <div
       className={page.outerClass}

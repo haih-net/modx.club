@@ -1,11 +1,8 @@
 import { Statistics } from './components/Statistics'
 import { errorPageStatusCode } from './components/Statistics/status'
-import { DocumentStyled as HtmlStyled } from './Custom/components/SiteLayout/styles'
-import {
-  Meta as SeoHeaders,
-  useLocation,
-  type MetaFunction,
-} from 'react-router'
+import { DocumentStyled as HtmlStyled } from './Custom/Layout/styles'
+import { Layout as SiteLayout } from './Custom/Layout'
+import { Meta as SeoHeaders, type MetaFunction } from 'react-router'
 import type * as React from 'react'
 
 export const meta: MetaFunction = ({ error }) =>
@@ -25,9 +22,8 @@ import {
 const betterlyticsId = import.meta.env.BETTERLYTICS_SITE_ID
 
 export const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const location = useLocation()
   return (
-    <HtmlStyled lang={location.pathname.startsWith('/en') ? 'en' : 'ru'}>
+    <HtmlStyled lang="ru">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,7 +40,7 @@ export const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         )}
       </head>
       <body>
-        {children}
+        <SiteLayout>{children}</SiteLayout>
         <ScrollRestoration />
         <Scripts />
       </body>
