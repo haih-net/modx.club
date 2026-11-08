@@ -1,89 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://modx.club/</loc></url>
-  <url><loc>https://modx.club/en/</loc></url>
   <url><loc>https://modx.club/concepts</loc></url>
-  <url><loc>https://modx.club/en/concepts</loc></url>
   <url><loc>https://modx.club/about</loc></url>
-  <url><loc>https://modx.club/en/about</loc></url>
   <url><loc>https://modx.club/concepts/modx-docker</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-docker</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-components</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-components</loc></url>
   <url><loc>https://modx.club/posts/otkrytoe-pismo-nikolayu-biz87-savinu</loc></url>
-  <url><loc>https://modx.club/en/posts/otkrytoe-pismo-nikolayu-biz87-savinu</loc></url>
   <url><loc>https://modx.club/concepts/modx-pays-for-rarely-used-complexity</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-pays-for-rarely-used-complexity</loc></url>
   <url><loc>https://modx.club/concepts/pochemu-ya-ne-soglasen-s-predlozheniem-soobschestva-modx-pro-peredat-im-bolshe-polnomochiy-v-ramkakh-proekta-modx-revolution</loc></url>
-  <url><loc>https://modx.club/en/concepts/pochemu-ya-ne-soglasen-s-predlozheniem-soobschestva-modx-pro-peredat-im-bolshe-polnomochiy-v-ramkakh-proekta-modx-revolution</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modsociety</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modsociety</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-console</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-console</loc></url>
   <url><loc>https://modx.club/posts/kak-umiralo-modx-soobschestvo</loc></url>
-  <url><loc>https://modx.club/en/posts/kak-umiralo-modx-soobschestvo</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-vapor</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-vapor</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modxrepository</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modxrepository</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modxsdk</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modxsdk</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-cacheoptimizer</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-cacheoptimizer</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modimporter</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modimporter</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modmonitor</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modmonitor</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-shopmodx</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-shopmodx</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modxsite</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modxsite</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-modxsmarty</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-modxsmarty</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof-phptemplates</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof-phptemplates</loc></url>
   <url><loc>https://modx.club/services/modx-migration</loc></url>
-  <url><loc>https://modx.club/en/services/modx-migration</loc></url>
   <url><loc>https://modx.club/concepts/modx-is-legacy</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-is-legacy</loc></url>
   <url><loc>https://modx.club/concepts/nikolai-savin-biz87-role-in-modx-community</loc></url>
-  <url><loc>https://modx.club/en/concepts/nikolai-savin-biz87-role-in-modx-community</loc></url>
   <url><loc>https://modx.club/concepts/modx-pro-not-community</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-pro-not-community</loc></url>
   <url><loc>https://modx.club/why-not</loc></url>
-  <url><loc>https://modx.club/en/why-not</loc></url>
   <url><loc>https://modx.club/why-not/big-bang-rewrite</loc></url>
-  <url><loc>https://modx.club/en/why-not/big-bang-rewrite</loc></url>
   <url><loc>https://modx.club/why-not/modx-development</loc></url>
-  <url><loc>https://modx.club/en/why-not/modx-development</loc></url>
   <url><loc>https://modx.club/concepts/modx-ecosystem-trap</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-ecosystem-trap</loc></url>
   <url><loc>https://modx.club/services/modx-audit</loc></url>
-  <url><loc>https://modx.club/en/services/modx-audit</loc></url>
   <url><loc>https://modx.club/services/headless-modx</loc></url>
-  <url><loc>https://modx.club/en/services/headless-modx</loc></url>
   <url><loc>https://modx.club/services/modx-upgrade</loc></url>
-  <url><loc>https://modx.club/en/services/modx-upgrade</loc></url>
   <url><loc>https://modx.club/services/modx-fixes</loc></url>
-  <url><loc>https://modx.club/en/services/modx-fixes</loc></url>
   <url><loc>https://modx.club/services/modx-improvements</loc></url>
-  <url><loc>https://modx.club/en/services/modx-improvements</loc></url>
   <url><loc>https://modx.club/services/modx-support</loc></url>
-  <url><loc>https://modx.club/en/services/modx-support</loc></url>
   <url><loc>https://modx.club/services</loc></url>
-  <url><loc>https://modx.club/en/services</loc></url>
   <url><loc>https://modx.club/concepts/fi1osof</loc></url>
-  <url><loc>https://modx.club/en/concepts/fi1osof</loc></url>
   <url><loc>https://modx.club/users/cmtg2938r00d5mn0qjjca75bn</loc></url>
   <url><loc>https://modx.club/concepts/modx-docker-minishop</loc></url>
   <url><loc>https://modx.club/users/cmlr57y2b0004s50qs8et9733</loc></url>
   <url><loc>https://modx.club/concepts?page=2</loc></url>
   <url><loc>https://modx.club/concepts?page=3</loc></url>
-  <url><loc>https://modx.club/en/users/cmtg2938r00d5mn0qjjca75bn</loc></url>
-  <url><loc>https://modx.club/en/concepts/modx-docker-minishop</loc></url>
-  <url><loc>https://modx.club/en/users/cmlr57y2b0004s50qs8et9733</loc></url>
-  <url><loc>https://modx.club/en/concepts?page=2</loc></url>
-  <url><loc>https://modx.club/en/concepts?page=3</loc></url>
   <url><loc>https://modx.club/posts/cmqsnu96e000tml0qsyzh469g</loc></url>
   <url><loc>https://modx.club/posts/cmqstcg2l0003lw0q33gesi4g</loc></url>
 </urlset>

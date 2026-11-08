@@ -46,6 +46,19 @@ async function startServer() {
   app.set('trust proxy', true)
   app.disable('x-powered-by')
 
+  // Английские адреса перенаправляются до статики и обработчика страниц.
+  app.use((req, res, next) => {
+    if (!/^\/en(?:\/|$)/.test(req.path)) {
+      return next()
+    }
+    const path = req.path.replace(/^\/en(?:\/|$)/, '')
+    const query = req.originalUrl.slice(req.originalUrl.indexOf('?'))
+    return res.redirect(
+      301,
+      `/${path.replace(/^\/+/, '')}${req.originalUrl.includes('?') ? query : ''}`,
+    )
+  })
+
   const httpServer = createServer(app)
 
   // GraphQL middleware
@@ -83,7 +96,7 @@ async function startServer() {
     app.use((req, res, next) => {
       // Пагинация хранится в файлах; запросы с page должны получить свой снимок, а не первый каталог.
       if (new URL(req.url, 'http://localhost').searchParams.has('page'))
-        return next()
+        {return next()}
       return staticFiles(req, res, next)
     })
 

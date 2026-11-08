@@ -19,7 +19,7 @@ const redirects: Record<string, string> = {
 }
 export const loader = ({ url }: LoaderFunctionArgs): PageData | Response => {
   if (redirects[url.pathname])
-    return redirect(redirects[url.pathname] + url.search, 301)
+    {return redirect(redirects[url.pathname] + url.search, 301)}
   const pathname =
     url.pathname === '/en/' || url.pathname === '/'
       ? url.pathname
@@ -32,7 +32,7 @@ export const loader = ({ url }: LoaderFunctionArgs): PageData | Response => {
         ? `?page=${url.searchParams.get('page')}`
         : '')
   const data = findPage(path)
-  if (!data) throw new Response('Страница не найдена', { status: 404 })
+  if (!data) {throw new Response('Страница не найдена', { status: 404 })}
   return data
 }
 export const meta: MetaFunction<typeof loader> = ({ loaderData }) =>

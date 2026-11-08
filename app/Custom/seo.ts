@@ -14,11 +14,5 @@ export const pageMeta = (data?: PageData): MetaDescriptor[] =>
         { property: 'og:description', content: data.page.description },
         { property: 'og:url', content: `https://modx.club${data.page.path}` },
         { property: 'og:type', content: 'website' },
-        ...data.page.alternate.map((alternate): MetaDescriptor => ({
-          tagName: 'link',
-          rel: 'alternate',
-          hrefLang: alternate.lang,
-          href: `https://modx.club${alternate.path}`,
-        })),
       ]
     : [{ title: '404 — modx.club' }, { name: 'robots', content: 'noindex' }]

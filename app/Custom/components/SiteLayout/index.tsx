@@ -12,10 +12,6 @@ export const SiteLayout: React.FC<
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     setOpen(false)
-    const checkbox = ref.current?.querySelector<HTMLInputElement>(
-      '#locale-switcher-toggle',
-    )
-    if (checkbox) checkbox.checked = false
     if (location.hash) {
       document
         .getElementById(decodeURIComponent(location.hash.slice(1)))
@@ -46,9 +42,9 @@ export const SiteLayout: React.FC<
       link.target ||
       link.hasAttribute('download')
     )
-      return
+      {return}
     const url = new URL(link.href)
-    if (url.origin !== window.location.origin) return
+    if (url.origin !== window.location.origin) {return}
     event.preventDefault()
     setOpen(false)
     void navigate(url.pathname + url.search + url.hash)
@@ -95,7 +91,7 @@ export const SiteLayout: React.FC<
           dangerouslySetInnerHTML={{ __html: page.footer }}
         />
       </div>
-      {/* ИИ-агент пока скрыт. ChatWidget не подключается; кнопки сохранены в HTML-комментариях файлов содержания. */}
+      {/* ИИ-агент пока скрыт. ChatWidget не подключается; разметка его кнопок не включается в HTML-снимки. */}
     </div>
   )
 }
