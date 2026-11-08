@@ -1,5 +1,5 @@
 import type * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import type { StaticPage } from '../../interfaces'
 
@@ -22,41 +22,50 @@ export const SiteLayout: React.FC<
         ?.focus({ preventScroll: true })
     }
   }, [location.key, location.hash])
-  const click: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    const target = event.target as Element
-    const burger = target.closest<HTMLButtonElement>('[data-area=burger]')
-    if (burger) {
-      setOpen(!open)
-      burger.setAttribute('aria-expanded', String(!open))
-      return
-    }
-    const link = target.closest<HTMLAnchorElement>('a[href]')
-    if (
-      !link ||
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      link.target ||
-      link.hasAttribute('download')
-    )
-      {return}
-    const url = new URL(link.href)
-    if (url.origin !== window.location.origin) {return}
-    event.preventDefault()
-    setOpen(false)
-    void navigate(url.pathname + url.search + url.hash)
-  }
-  const keyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
-    if (event.key === 'Escape') {
+  const click = useCallback<React.MouseEventHandler<HTMLDivElement>>(
+    (event) => {
+      const target = event.target as Element
+      const burger = target.closest<HTMLButtonElement>('[data-area=burger]')
+      if (burger) {
+        setOpen(!open)
+        burger.setAttribute('aria-expanded', String(!open))
+        return
+      }
+      const link = target.closest<HTMLAnchorElement>('a[href]')
+      if (
+        !link ||
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        link.target ||
+        link.hasAttribute('download')
+      ) {
+        return
+      }
+      const url = new URL(link.href)
+      if (url.origin !== window.location.origin) {
+        return
+      }
+      event.preventDefault()
       setOpen(false)
-      ref.current
-        ?.querySelector<HTMLButtonElement>('[data-area=burger]')
-        ?.focus()
-    }
-  }
+      void navigate(url.pathname + url.search + url.hash)
+    },
+    [navigate, open],
+  )
+  const keyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
+    (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        ref.current
+          ?.querySelector<HTMLButtonElement>('[data-area=burger]')
+          ?.focus()
+      }
+    },
+    [],
+  )
   useEffect(() => {
     const burger =
       ref.current?.querySelector<HTMLButtonElement>('[data-area=burger]')

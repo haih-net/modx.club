@@ -34,7 +34,9 @@ try {
       assert.equal(await page.title(), entry.title)
       assert.equal(await page.locator('h1').count(), 1)
       const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth > innerWidth + 1,
+        () =>
+          globalThis.document.documentElement.scrollWidth >
+          globalThis.innerWidth + 1,
       )
       assert.equal(overflow, false, entry.path + ': горизонтальный скролл')
       await page.locator('img').evaluateAll(async (images) => {
@@ -59,7 +61,7 @@ try {
     }
     await page.goto(origin + '/', { waitUntil: 'networkidle' })
     await page.evaluate(() => {
-      window.__navigationSentinel = 42
+      globalThis.window.__navigationSentinel = 42
     })
     if (width < 900) {
       await page.locator('[data-area=burger]').click()
@@ -69,7 +71,7 @@ try {
     await page.waitForURL('**/concepts')
     await page.getByRole('heading', { name: 'Концепты', exact: true }).waitFor()
     assert.equal(
-      await page.evaluate(() => window.__navigationSentinel),
+      await page.evaluate(() => globalThis.window.__navigationSentinel),
       42,
       'SPA переход',
     )
@@ -90,7 +92,9 @@ try {
       pages.find((p) => p.path === '/concepts/modx-docker').title,
     )
     assert.equal(
-      await page.locator('h1').evaluate((el) => document.activeElement === el),
+      await page
+        .locator('h1')
+        .evaluate((el) => globalThis.document.activeElement === el),
       true,
       'Фокус заголовка',
     )

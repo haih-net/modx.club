@@ -7,7 +7,8 @@
     ".react-router/types/**/*",
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx",
-    "tests/**/*.ts"
+    "tests/**/*.ts",
+    "migration/source/**/*.ts"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],

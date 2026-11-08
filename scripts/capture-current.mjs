@@ -1,4 +1,5 @@
 // Снимок актуального сайта. Импорт никогда не изменяет рабочее содержание app/Custom/content.
+import { Buffer } from 'node:buffer'
 import { load } from 'cheerio'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
@@ -14,7 +15,7 @@ const sitemapPaths = []
 const xmlQueue = ['/sitemap.xml']
 for (const path of xmlQueue) {
   const xml = await (
-    await fetch(base + path, { signal: AbortSignal.timeout(30000) })
+    await fetch(base + path, { signal: globalThis.AbortSignal.timeout(30000) })
   ).text()
   await writeFile(`${destination}/raw/${path.replaceAll('/', '_')}`, xml)
   for (const match of xml.matchAll(/<loc>(.*?)<\/loc>/g)) {
@@ -51,7 +52,9 @@ const addUrl = (href, current) => {
     const path = url.pathname + url.search
     if (path === '/en') queue.add('/en/')
     else queue.add(path)
-  } catch {}
+  } catch {
+    // Некорректные URL не включаем в очередь обхода.
+  }
 }
 async function localAsset(src) {
   const url = new URL(src, base)
@@ -61,7 +64,7 @@ async function localAsset(src) {
   const key = url.pathname + url.search
   if (assetMap.has(key)) return assetMap.get(key)
   const response = await fetch(base + key, {
-    signal: AbortSignal.timeout(30000),
+    signal: globalThis.AbortSignal.timeout(30000),
   })
   if (!response.ok) throw new Error(`Ресурс ${key}: ${response.status}`)
   const extension =
@@ -85,7 +88,7 @@ for (const path of queue) {
   if (pages.length > 250)
     throw new Error('Проверьте карту адресов: более 250 страниц')
   const response = await fetch(base + path, {
-    signal: AbortSignal.timeout(30000),
+    signal: globalThis.AbortSignal.timeout(30000),
   })
   const html = await response.text()
   const $ = load(html)

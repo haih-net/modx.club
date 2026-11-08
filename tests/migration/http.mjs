@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers/promises'
 import { readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 import { load } from 'cheerio'
@@ -19,8 +20,10 @@ try {
   for (let i = 0; i < 100; i++) {
     try {
       if ((await fetch(origin)).ok) break
-    } catch {}
-    await new Promise((r) => setTimeout(r, 100))
+    } catch {
+      // Сервер может ещё запускаться; повторяем запрос после задержки.
+    }
+    await setTimeout(100)
   }
   const internalLinks = new Set()
   for (const page of pages) {

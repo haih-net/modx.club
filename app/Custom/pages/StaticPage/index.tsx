@@ -38,9 +38,9 @@ export const StaticPage: React.FC<PageData> = ({ page, html }) => (
         }).replace(/</g, '\\u003c'),
       }}
     />
-    {page.jsonLd.map((data: unknown, index: number) => (
+    {page.jsonLd.map((data: unknown) => (
       <script
-        key={index}
+        key={JSON.stringify(data)}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(data).replace(/</g, '\\u003c'),

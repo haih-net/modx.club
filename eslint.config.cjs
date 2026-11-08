@@ -11,6 +11,7 @@ module.exports = [
   {
     ignores: [
       'node_modules/**',
+      '.cache/**',
       'coverage/**',
       'playwright-report/**',
       'test-results/**',
