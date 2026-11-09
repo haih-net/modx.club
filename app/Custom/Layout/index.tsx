@@ -18,17 +18,19 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const previousLocationKey = useRef(location.key)
   useEffect(() => {
     setOpen(false)
     if (location.hash) {
       document
         .getElementById(decodeURIComponent(location.hash.slice(1)))
         ?.scrollIntoView()
-    } else {
+    } else if (previousLocationKey.current !== location.key) {
       ref.current
         ?.querySelector<HTMLHeadingElement>('h1')
         ?.focus({ preventScroll: true })
     }
+    previousLocationKey.current = location.key
   }, [location.key, location.hash])
   const click = useCallback<React.MouseEventHandler<HTMLDivElement>>(
     (event) => {

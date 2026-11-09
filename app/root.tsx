@@ -1,7 +1,7 @@
 import { App as CustomApp } from './Custom/components/pages/_App'
 import { Statistics } from './components/Statistics'
 import { errorPageStatusCode } from './components/Statistics/status'
-import { DocumentStyled as HtmlStyled } from './Custom/Layout/styles'
+import { HtmlStyled } from './Custom/theme/global'
 import { Layout as SiteLayout } from './Custom/Layout'
 import { Meta as SeoHeaders, type MetaFunction } from 'react-router'
 import type * as React from 'react'
