@@ -4,15 +4,16 @@ import { styled } from '@linaria/react'
 export const MessageStyled = styled.div`
   max-width: 85%;
   padding: 14px 18px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 0.9375rem;
   line-height: 1.6;
   overflow-wrap: anywhere;
   align-self: flex-start;
   background: #ffffff;
-  color: #1f2937;
+  color: #0f1a2e;
   border-bottom-left-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e3e8f1;
+  box-shadow: 0 1px 3px rgba(15, 26, 46, 0.04);
   ${MarkdownStyled} img {
     max-width: min(100%, 420px);
     max-height: 420px;
@@ -23,11 +24,12 @@ export const MessageStyled = styled.div`
 
   &[data-user='true'] {
     align-self: flex-end;
-    background: #3b82f6;
+    background: #2e6bff;
+    border-color: #2e6bff;
     color: #fff;
     border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 20px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+    border-bottom-left-radius: 16px;
+    box-shadow: 0 2px 8px rgba(46, 107, 255, 0.16);
     ${MarkdownStyled} {
       a {
         color: inherit;

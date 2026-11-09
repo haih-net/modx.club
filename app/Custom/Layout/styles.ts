@@ -1249,14 +1249,6 @@ export const DocumentStyled = styled.html`
   p {
     margin: 0;
   }
-  /* Исправлена невалидная сериализация объекта цвета исходной темы. */
-  :focus-visible {
-    outline: 2px solid #2e6bff;
-    outline-offset: 3px;
-  }
-  h1:focus {
-    outline: none;
-  }
   main {
     min-width: 0;
     overflow-wrap: anywhere;

@@ -150,8 +150,4 @@ export const HeaderFeedbackStyled = styled.button`
   &:hover {
     background: #1e55d8;
   }
-  &:focus-visible {
-    outline: 2px solid #2e6bff;
-    outline-offset: 3px;
-  }
 `

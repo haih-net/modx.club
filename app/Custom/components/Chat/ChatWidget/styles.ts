@@ -1,5 +1,4 @@
 import { styled } from '@linaria/react'
-import { theme } from '../../../theme'
 
 export const ChatWidgetContainer = styled.div`
   position: fixed;
@@ -25,10 +24,7 @@ export const ChatContentContainer = styled.div`
   overflow: auto;
 
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) auto auto;
-  @media (min-width: 768px) {
-    grid-template-rows: minmax(0, 1fr) auto 1fr;
-  }
+  grid-template-rows: minmax(min-content, 1fr) auto;
   &[data-has-messages='true'] {
     grid-template-rows: minmax(0, 1fr) auto;
     align-content: start;
@@ -46,10 +42,12 @@ export const ChatWindow = styled.div`
   height: 100%;
   max-height: 100dvh;
   border-radius: 0;
-  background: #ffffff;
+  background:
+    radial-gradient(circle at 0% 0%, #e8f0ff 0%, transparent 65%), #f5f7fb;
+  color: #0f1a2e;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
+    0 12px 32px rgba(15, 26, 46, 0.16),
+    0 0 0 1px #e3e8f1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -88,19 +86,20 @@ export const ChatWindow = styled.div`
 `
 
 export const ChatHeader = styled.div`
-  padding: 16px 20px;
-  background: #f9fafb;
+  padding: 12px 16px;
+  flex-shrink: 0;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e3e8f1;
 `
 
 export const ChatTitle = styled.h3`
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #0f1a2e;
 `
 
 export const HeaderButtons = styled.div`
@@ -113,15 +112,24 @@ export const HeaderButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6b7280;
-  transition: color 0.2s;
+  color: #5a6679;
+  transition:
+    color 0.2s,
+    background 0.2s;
 
   &:hover {
-    color: #1f2937;
+    color: #2e6bff;
+    background: #e8f0ff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2e6bff;
+    outline-offset: 2px;
   }
 
   svg {
@@ -145,8 +153,9 @@ export const ChatMessages = styled.div`
   flex: 1;
   overflow-y: auto;
   overflow-anchor: none;
-  padding: 24px;
-  padding-bottom: calc(24px + var(--chat-response-space, 0px));
+  min-height: 0;
+  padding: 20px;
+  padding-bottom: calc(20px + var(--chat-response-space, 0px));
 
   > * {
     flex-shrink: 0;
@@ -180,7 +189,7 @@ export const ChatInputContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 16px 24px 24px;
+  padding: 16px 20px max(20px, env(safe-area-inset-bottom));
   background: transparent;
   grid-row: 2;
 `
@@ -191,10 +200,15 @@ export const ChatForm = styled.form`
   align-items: center;
   margin: 0 auto;
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: 16px;
   padding: 8px 8px 8px 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(15, 26, 46, 0.04);
+  border: 1px solid #e3e8f1;
+
+  &:focus-within {
+    border-color: #2e6bff;
+    box-shadow: 0 0 0 3px rgba(46, 107, 255, 0.12);
+  }
 `
 
 export const ChatTextarea = styled.textarea`
@@ -204,16 +218,17 @@ export const ChatTextarea = styled.textarea`
   border: none;
   border-radius: 0;
   background: transparent;
-  color: #1f2937;
+  color: #0f1a2e;
   font-size: 1rem;
   font-family: inherit;
+  outline: none;
   resize: none;
   min-height: 24px;
   max-height: 200px;
   line-height: 1.5;
 
   &::placeholder {
-    color: #9ca3af;
+    color: #5a6679;
   }
 `
 
@@ -221,10 +236,12 @@ export const SendButton = styled.button`
   width: 44px;
   height: 44px;
   flex-shrink: 0;
-  border-radius: 50%;
-  background: #9ca3af;
+  border-radius: 10px;
+  background: #e3e8f1;
+  color: #5a6679;
   &[data-has-text='true'] {
-    background: #1f2937;
+    background: #2e6bff;
+    color: #fff;
   }
   border: none;
   cursor: pointer;
@@ -234,18 +251,23 @@ export const SendButton = styled.button`
   transition: all 0.2s;
   font-size: 0;
 
-  &:hover {
-    background: #6b7280;
-    &[data-has-text='true'] {
-      background: #374151;
-    }
-    transform: scale(1.05);
+  &:hover:not(:disabled) {
+    background: #1e55d8;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2e6bff;
+    outline-offset: 2px;
   }
 
   svg {
     width: 20px;
     height: 20px;
-    fill: #fff;
+    fill: currentColor;
     margin-left: 2px;
   }
 `
@@ -254,8 +276,8 @@ export const StopButton = styled.button`
   width: 44px;
   height: 44px;
   flex-shrink: 0;
-  border-radius: 50%;
-  background: #1f2937;
+  border-radius: 10px;
+  background: #2e6bff;
   border: none;
   cursor: pointer;
   display: flex;
@@ -265,8 +287,12 @@ export const StopButton = styled.button`
   font-size: 0;
 
   &:hover {
-    background: #374151;
-    transform: scale(1.05);
+    background: #1e55d8;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2e6bff;
+    outline-offset: 2px;
   }
 
   svg {
@@ -289,7 +315,7 @@ export const TypingIndicator = styled.div`
   span {
     width: 8px;
     height: 8px;
-    background: #9ca3af;
+    background: #2e6bff;
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out both;
 
@@ -315,24 +341,29 @@ export const TypingIndicator = styled.div`
 
 export const WelcomeMessage = styled.div`
   text-align: center;
-  padding: 48px 24px;
-  color: #6b7280;
+  padding: 32px 24px;
+  min-width: 0;
+  color: #5a6679;
   font-size: 1rem;
   line-height: 1.6;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   grid-row: 1;
 
   h4 {
-    color: #1f2937;
+    color: #0f1a2e;
     margin: 0 0 12px;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
   }
 
   p {
+    margin: 0;
     max-width: 400px;
   }
 `
@@ -341,7 +372,7 @@ export const ChatButton = styled.button`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: ${theme.colors.primary};
+  background: #2e6bff;
   border: none;
   cursor: pointer;
   display: flex;
@@ -350,14 +381,20 @@ export const ChatButton = styled.button`
   }
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(23, 63, 46, 0.24);
+  box-shadow: 0 4px 12px rgba(46, 107, 255, 0.24);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
 
   &:hover:not(:disabled) {
+    background: #1e55d8;
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(23, 63, 46, 0.32);
+    box-shadow: 0 6px 16px rgba(46, 107, 255, 0.32);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2e6bff;
+    outline-offset: 4px;
   }
 
   &:disabled {
