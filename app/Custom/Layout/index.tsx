@@ -2,8 +2,13 @@ import type * as React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { siteLayout as page } from './data'
+import { useAppContext } from '../components/AppContext'
+import { ChatProvider } from '../components/Chat/ChatWidget/context'
+import { ChatWidget } from '../components/Chat/ChatWidget'
+import { FeedbackForm } from '../components/Feedback'
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { openFeedback } = useAppContext() ?? {}
   const navigate = useNavigate()
   const location = useLocation()
   const [open, setOpen] = useState(false)
@@ -23,6 +28,11 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const click = useCallback<React.MouseEventHandler<HTMLDivElement>>(
     (event) => {
       const target = event.target as Element
+      if (target.closest('[data-action=feedback]')) {
+        openFeedback?.()
+        setOpen(false)
+        return
+      }
       const burger = target.closest<HTMLButtonElement>('[data-area=burger]')
       if (burger) {
         setOpen(!open)
@@ -51,7 +61,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       setOpen(false)
       void navigate(url.pathname + url.search + url.hash)
     },
-    [navigate, open],
+    [navigate, open, openFeedback],
   )
   const keyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
     (event) => {
@@ -80,25 +90,30 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     )
   }, [open])
   return (
-    <div
-      className={page.outerClass}
-      ref={ref}
-      onClick={click}
-      onKeyDown={keyDown}
-      data-menu-open={open}
-    >
-      <div className={page.shellClass}>
-        <div
-          data-fragment="header"
-          dangerouslySetInnerHTML={{ __html: page.header }}
-        />
-        <main className={page.mainClass}>{children}</main>
-        <div
-          data-fragment="footer"
-          dangerouslySetInnerHTML={{ __html: page.footer }}
-        />
+    <ChatProvider>
+      <div
+        className={page.outerClass}
+        ref={ref}
+        onClick={click}
+        onKeyDown={keyDown}
+        data-menu-open={open}
+      >
+        <div className={page.shellClass}>
+          <div
+            data-fragment="header"
+            dangerouslySetInnerHTML={{ __html: page.header }}
+          />
+          <main className={page.mainClass}>{children}</main>
+          <div
+            data-fragment="footer"
+            dangerouslySetInnerHTML={{ __html: page.footer }}
+          />
+        </div>
+        {/* Историческое ограничение переноса отменено: виджет подключён по запросу владельца. */}
+        {/* ИИ-агент пока скрыт. ChatWidget не подключается; разметка его кнопок не включается в HTML-снимки. */}
+        <FeedbackForm />
+        <ChatWidget />
       </div>
-      {/* ИИ-агент пока скрыт. ChatWidget не подключается; разметка его кнопок не включается в HTML-снимки. */}
-    </div>
+    </ChatProvider>
   )
 }

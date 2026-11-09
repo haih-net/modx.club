@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react'
 
 export const FeedbackDialog = styled.dialog`
+  margin: auto;
   width: min(540px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   box-sizing: border-box;

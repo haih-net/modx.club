@@ -1166,9 +1166,6 @@ export const DocumentStyled = styled.html`
     margin-bottom: 0;
   }
   /*!sc*/
-  *:focus {
-    outline: none;
-  }
   &,
   body {
     height: 100%;
@@ -1563,6 +1560,27 @@ export const DocumentStyled = styled.html`
   }
   .hEHPBi [data-area='cta'] {
     grid-area: cta;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 10px 18px;
+    border: 1px solid #0f1a2e;
+    border-radius: 6px;
+    background: #0f1a2e;
+    color: #fff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 120ms ease;
+  }
+  .hEHPBi [data-area='cta']:hover {
+    background: #283b59;
+  }
+  .hEHPBi [data-area='cta']:focus-visible {
+    outline: 2px solid #0f1a2e;
+    outline-offset: 3px;
   }
   @media (min-width: 900px) {
     .hEHPBi {
