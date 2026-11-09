@@ -1260,6 +1260,8 @@ export const DocumentStyled = styled.html`
 
 import { theme } from '../theme'
 
+export const AiButtonStyled = styled.button``
+
 export const CustomLayoutSectionStyled = styled.section`
   max-width: 1328px;
   padding: 44px 24px;

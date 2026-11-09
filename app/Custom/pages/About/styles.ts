@@ -19,6 +19,9 @@ export const AboutContainer = styled.div`
   margin: 0 auto;
   padding-left: 32px;
   padding-right: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   @media (max-width: 900px) {
     padding-left: 16px;
@@ -87,6 +90,8 @@ export const AboutTextBlock = styled.div`
   color: #5a6679;
   font-size: 15px;
   line-height: 1.7;
+
+  margin: 10px 0;
 
   @media (min-width: 900px) {
     font-size: 17px;
