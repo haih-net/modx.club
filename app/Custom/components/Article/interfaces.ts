@@ -1,4 +1,3 @@
-
 export interface ArticleData {
   path: string
   title: string

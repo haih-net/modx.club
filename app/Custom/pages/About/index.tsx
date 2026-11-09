@@ -1,17 +1,33 @@
+import {
+  AboutPageCustomStyled,
+  AboutSection,
+  AboutContainer,
+  AboutHeroGrid,
+  AboutContent,
+  AboutTitle,
+  AboutTextBlock,
+  AboutImageWrap,
+  AboutFullWidthSection,
+  AboutSubtitle,
+  AboutSubtitle3,
+  AboutCaseSection,
+  AboutCaseGrid,
+  AboutCaseItem,
+  AboutCaseImage,
+  AboutCaseLabel,
+} from './styles'
 import type * as React from 'react'
 
 export const AboutPage: React.FC = () => (
   <>
-    <div className="sc-b8034c2-0">
-      <section className="sc-b8034c2-1 jvZeEj">
-        <div className="sc-b8034c2-2 jkIdwk">
-          <div className="sc-b8034c2-3 jUDmvO">
-            <div className="sc-b8034c2-4 PmyxU">
-              <h1 className="sc-b8034c2-5 fVgGeK" tabIndex={-1}>
-                О Клубе
-              </h1>
+    <AboutPageCustomStyled>
+      <AboutSection>
+        <AboutContainer>
+          <AboutHeroGrid>
+            <AboutContent>
+              <AboutTitle tabIndex={-1}>О Клубе</AboutTitle>
 
-              <div className="sc-b8034c2-7 fFroox">
+              <AboutTextBlock>
                 MODX-Клуб появился 17 марта 2013 года (во всяком случае этой
                 датой датируется первое{' '}
                 <a
@@ -35,9 +51,9 @@ export const AboutPage: React.FC = () => (
                   короткая заметка
                 </a>{' '}
                 по этому поводу. В 2019 году MODX-официально был закрыт.
-              </div>
+              </AboutTextBlock>
 
-              <div className="sc-b8034c2-7 fFroox">
+              <AboutTextBlock>
                 Тогда сайт переехал на prisma-cms.com (домен уже потерян), а
                 позже уже на{' '}
                 <a
@@ -58,10 +74,10 @@ export const AboutPage: React.FC = () => (
                 обороты и он в корне переписал все правила игры. По этой причине
                 freecode.academy останется просто как архив старых заметок. В
                 остальном же на нем можно поставить крест.
-              </div>
-            </div>
+              </AboutTextBlock>
+            </AboutContent>
 
-            <div className="sc-b8034c2-6 dHoBMD">
+            <AboutImageWrap>
               <img
                 alt="Nikolai Lanets aka Fi1osof"
                 loading="lazy"
@@ -71,16 +87,16 @@ export const AboutPage: React.FC = () => (
                 style={{ color: 'transparent' }}
                 src="/media/77e7041a77aa7a96.jpg"
               />
-            </div>
-          </div>
-        </div>
-      </section>
+            </AboutImageWrap>
+          </AboutHeroGrid>
+        </AboutContainer>
+      </AboutSection>
 
-      <section className="sc-b8034c2-10 drmLDa">
-        <div className="sc-b8034c2-2 jkIdwk">
-          <h2 className="sc-b8034c2-8 jbrzEo">Перезапуск MODX-Клуба</h2>
+      <AboutFullWidthSection>
+        <AboutContainer>
+          <AboutSubtitle>Перезапуск MODX-Клуба</AboutSubtitle>
 
-          <div className="sc-b8034c2-7 fFroox">
+          <AboutTextBlock>
             В настоящий момент Клуб перезапущен в новом качестве и в составе
             только одного человека - меня. Меня зовут Николай Ланец, ранее на
             MODX-рынке хорошо известен под никнеймом Fi1osof, и хотя в 2019 году
@@ -100,11 +116,11 @@ export const AboutPage: React.FC = () => (
             современных технологиях, с уникальным ИИ-агентом на борту.
             Собственно, на нем я сейчас делаю и свои личные сайты, и сайты
             клиентов.
-          </div>
+          </AboutTextBlock>
 
-          <h3 className="sc-b8034c2-9 dPmKrF">Цели Клуба</h3>
+          <AboutSubtitle3>Цели Клуба</AboutSubtitle3>
 
-          <div className="sc-b8034c2-7 fFroox">
+          <AboutTextBlock>
             Обновленный Клуб не ставит своей целью кого-либо научить.
             Единственная целесообразная на сегодня цель - обеспечить
             безболезненный переезд старых сайтов с MODX на более современные
@@ -116,9 +132,9 @@ export const AboutPage: React.FC = () => (
             репозиторий MODX Revolution и посмотреть статистику. Усредненная
             картина примерно такая: штук 5 мерж-реквестов и парочка закрытых
             тикетов за месяц.
-          </div>
+          </AboutTextBlock>
 
-          <div className="sc-b8034c2-7 fFroox">
+          <AboutTextBlock>
             Какие-то дополнения конечно пишутся немного для MODX, но они все всё
             равно создаются поверх старых рельс, так что ничего особо
             современного и эффективного там все равно не может получиться.
@@ -131,27 +147,26 @@ export const AboutPage: React.FC = () => (
             предложить клиентам новый уровень услуг, они продолжают вводить
             клиентов в заблуждение, что кроме MODX им больше ничего не нужно и
             на нем получится все сделать.
-          </div>
+          </AboutTextBlock>
 
-          <div className="sc-b8034c2-7 fFroox">
+          <AboutTextBlock>
             Скорее всего я не смогу убедить в этом тех, кто думает еще только
             сделать себе сайт на MODX, но я могу помочь тем, кто уже сделал и
             разочаровался.{' '}
-            <div className="sc-b8034c2-11 ctYwsD">
-              <h3 className="sc-b8034c2-9 dPmKrF">Пример работы</h3>
+            <AboutCaseSection>
+              <AboutSubtitle3>Пример работы</AboutSubtitle3>
 
-              <div className="sc-b8034c2-7 fFroox">
+              <AboutTextBlock>
                 Сравните сами: сайт до и после переезда с MODX.
-              </div>
+              </AboutTextBlock>
 
-              <div className="sc-b8034c2-12 fwmKeY">
-                <a
+              <AboutCaseGrid>
+                <AboutCaseItem
                   href="https://old.happybaby2000-ru.portfolio.fi1osof.ru/"
                   target="_blank"
-                  className="sc-b8034c2-13 dIMlnk"
                   rel="noopener noreferrer"
                 >
-                  <div className="sc-b8034c2-14 dxDBHv">
+                  <AboutCaseImage>
                     <img
                       alt="Старая версия сайта happybaby2000.ru"
                       loading="lazy"
@@ -161,20 +176,19 @@ export const AboutPage: React.FC = () => (
                       style={{ color: 'transparent' }}
                       src="/media/11c95fdfea3ef124.png"
                     />
-                  </div>
+                  </AboutCaseImage>
 
-                  <div className="sc-b8034c2-15 ckxAKx">
+                  <AboutCaseLabel>
                     Было{/* */}{' '}
                     <b>https://old.happybaby2000-ru.portfolio.fi1osof.ru</b>
-                  </div>
-                </a>
-                <a
+                  </AboutCaseLabel>
+                </AboutCaseItem>
+                <AboutCaseItem
                   href="https://happybaby2000.ru/"
                   target="_blank"
-                  className="sc-b8034c2-13 dIMlnk"
                   rel="noopener noreferrer"
                 >
-                  <div className="sc-b8034c2-14 dxDBHv">
+                  <AboutCaseImage>
                     <img
                       alt="Новая версия сайта happybaby2000.ru"
                       loading="lazy"
@@ -184,19 +198,19 @@ export const AboutPage: React.FC = () => (
                       style={{ color: 'transparent' }}
                       src="/media/87232562fb06068c.png"
                     />
-                  </div>
+                  </AboutCaseImage>
 
-                  <div className="sc-b8034c2-15 ckxAKx">
+                  <AboutCaseLabel>
                     Стало{/* */} <b>https://happybaby2000.ru</b>
-                  </div>
-                </a>
-              </div>
-            </div>
+                  </AboutCaseLabel>
+                </AboutCaseItem>
+              </AboutCaseGrid>
+            </AboutCaseSection>
             Если у вас есть работающий MODX-сайт и вы хотите получить его более
             современную версию,{/* */} {/* */}как это можно сделать.
-          </div>
-        </div>
-      </section>
-    </div>
+          </AboutTextBlock>
+        </AboutContainer>
+      </AboutFullWidthSection>
+    </AboutPageCustomStyled>
   </>
 )

@@ -1,3 +1,18 @@
+import {
+  CatalogPaginationStyled as PaginationStyled,
+  PaginationButtonStyled,
+  PaginationLinkStyled,
+  PaginationInfoStyled,
+} from '../../components/Pagination/styles'
+import {
+  CatalogTitleStyled,
+  ConceptsViewStyled,
+  ConceptsViewListStyled,
+  ConceptItemStyled,
+  ConceptItemTitleStyled,
+  ConceptItemDescriptionStyled,
+} from './styles'
+import { MarkdownStyled } from '../../components/Markdown/styles'
 import type * as React from 'react'
 import { Link } from 'react-router'
 import { ArticleByline } from '../../components/Article/ArticleByline'
@@ -7,29 +22,26 @@ export const ConceptsPage: React.FC<{ pageNumber: number }> = ({
   pageNumber,
 }) => (
   <>
-    <h1 className="catalog-title" tabIndex={-1}>
-      Концепты
-    </h1>
-    <div className="sc-68a340fd-1 csEtZh">
-      <div className="sc-68a340fd-0 bRKbdE">
+    <CatalogTitleStyled tabIndex={-1}>Концепты</CatalogTitleStyled>
+    <ConceptsViewStyled>
+      <ConceptsViewListStyled>
         {conceptPages[pageNumber - 1].map((concept) => (
-          <article key={concept.path} className="sc-26117dc-4 jTCBko">
+          <ConceptItemStyled key={concept.path}>
             <Link to={concept.path}>
-              <h3 className="sc-26117dc-1 iXbHTl">{concept.title}</h3>
+              <ConceptItemTitleStyled>{concept.title}</ConceptItemTitleStyled>
             </Link>
-            <div className="sc-26117dc-2 dxMSBf">
-              <div className="sc-393fa0b6-0 laHoxW">
+            <ConceptItemDescriptionStyled>
+              <MarkdownStyled>
                 <p>{concept.description}</p>
-              </div>
-            </div>
+              </MarkdownStyled>
+            </ConceptItemDescriptionStyled>
             <ArticleByline data={concept} />
-          </article>
+          </ConceptItemStyled>
         ))}
-      </div>
-      <nav className="sc-af3c7750-0 dgjghH" aria-label="Страницы базы знаний">
+      </ConceptsViewListStyled>
+      <PaginationStyled aria-label="Страницы базы знаний">
         {pageNumber > 1 ? (
-          <Link
-            className="sc-af3c7750-1 ftJxmR"
+          <PaginationLinkStyled
             to={
               pageNumber === 2
                 ? '/concepts'
@@ -37,28 +49,21 @@ export const ConceptsPage: React.FC<{ pageNumber: number }> = ({
             }
           >
             Назад
-          </Link>
+          </PaginationLinkStyled>
         ) : (
-          <button disabled className="sc-af3c7750-1 ftJxmR">
-            Назад
-          </button>
+          <PaginationButtonStyled disabled>Назад</PaginationButtonStyled>
         )}
-        <span className="sc-af3c7750-2 eCjqDU">
+        <PaginationInfoStyled>
           Страница {pageNumber} из {conceptPages.length}
-        </span>
+        </PaginationInfoStyled>
         {pageNumber < conceptPages.length ? (
-          <Link
-            className="sc-af3c7750-1 ftJxmR"
-            to={`/concepts?page=${pageNumber + 1}`}
-          >
+          <PaginationLinkStyled to={`/concepts?page=${pageNumber + 1}`}>
             Вперёд
-          </Link>
+          </PaginationLinkStyled>
         ) : (
-          <button disabled className="sc-af3c7750-1 ftJxmR">
-            Вперёд
-          </button>
+          <PaginationButtonStyled disabled>Вперёд</PaginationButtonStyled>
         )}
-      </nav>
-    </div>
+      </PaginationStyled>
+    </ConceptsViewStyled>
   </>
 )

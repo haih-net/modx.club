@@ -1,6 +1,7 @@
 import type * as React from 'react'
 import { Link } from 'react-router'
-import { ArticleStyled } from './styles'
+import { ArticleStyled, ArticleCardStyled, ArticleTitleStyled } from './styles'
+import { MarkdownStyled } from '../Markdown/styles'
 import { ArticleData } from './interfaces'
 import { ArticleByline } from './ArticleByline'
 
@@ -10,18 +11,18 @@ export const Article: React.FC<
     titleTag?: 'h1' | 'h3'
   }>
 > = ({ data, titleTag: Heading = 'h1', children }) => (
-  <ArticleStyled className="sc-8c77d27c-1 hQpjlf">
-    <div className="sc-26117dc-4 kRxhDO">
+  <ArticleStyled>
+    <ArticleCardStyled>
       <Link to={data.path}>
-        <Heading
-          className="sc-26117dc-1 iXbHTl"
+        <ArticleTitleStyled
+          as={Heading}
           tabIndex={Heading === 'h1' ? -1 : undefined}
         >
           {data.title}
-        </Heading>
+        </ArticleTitleStyled>
       </Link>
-      <div className="sc-393fa0b6-0 laHoxW">{children}</div>
+      <MarkdownStyled>{children}</MarkdownStyled>
       <ArticleByline data={data} />
-    </div>
+    </ArticleCardStyled>
   </ArticleStyled>
 )

@@ -1,7 +1,12 @@
 import type * as React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { siteLayout as page } from './data'
+import { LovableHeader } from './LovableHeader'
+import { LovableFooter } from './LovableFooter'
+import {
+  LovableLayoutStyled,
+  LovableLayoutMainStyled,
+} from './LovableLayout/styles'
 import { useAppContext } from '../components/AppContext'
 import { ChatProvider } from '../components/Chat/ChatWidget/context'
 import { ChatWidget } from '../components/Chat/ChatWidget'
@@ -33,12 +38,6 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         setOpen(false)
         return
       }
-      const burger = target.closest<HTMLButtonElement>('[data-area=burger]')
-      if (burger) {
-        setOpen(!open)
-        burger.setAttribute('aria-expanded', String(!open))
-        return
-      }
       const link = target.closest<HTMLAnchorElement>('a[href]')
       if (
         !link ||
@@ -61,7 +60,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       setOpen(false)
       void navigate(url.pathname + url.search + url.hash)
     },
-    [navigate, open, openFeedback],
+    [navigate, openFeedback],
   )
   const keyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
     (event) => {
@@ -74,41 +73,25 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     },
     [],
   )
-  useEffect(() => {
-    const burger =
-      ref.current?.querySelector<HTMLButtonElement>('[data-area=burger]')
-    burger?.setAttribute('aria-expanded', String(open))
-    burger?.setAttribute(
-      'aria-label',
-      page.locale === 'en'
-        ? open
-          ? 'Close menu'
-          : 'Open menu'
-        : open
-          ? 'Закрыть меню'
-          : 'Открыть меню',
-    )
-  }, [open])
+  const toggleMenu = useCallback(() => setOpen((value) => !value), [])
+  const closeMenu = useCallback(() => setOpen(false), [])
+  const showFeedback = useCallback(() => {
+    openFeedback?.()
+    setOpen(false)
+  }, [openFeedback])
   return (
     <ChatProvider>
-      <div
-        className={page.outerClass}
-        ref={ref}
-        onClick={click}
-        onKeyDown={keyDown}
-        data-menu-open={open}
-      >
-        <div className={page.shellClass}>
-          <div
-            data-fragment="header"
-            dangerouslySetInnerHTML={{ __html: page.header }}
+      <div ref={ref} onClick={click} onKeyDown={keyDown} data-menu-open={open}>
+        <LovableLayoutStyled>
+          <LovableHeader
+            open={open}
+            onToggle={toggleMenu}
+            onClose={closeMenu}
+            onFeedback={showFeedback}
           />
-          <main className={page.mainClass}>{children}</main>
-          <div
-            data-fragment="footer"
-            dangerouslySetInnerHTML={{ __html: page.footer }}
-          />
-        </div>
+          <LovableLayoutMainStyled>{children}</LovableLayoutMainStyled>
+          <LovableFooter />
+        </LovableLayoutStyled>
         {/* Историческое ограничение переноса отменено: виджет подключён по запросу владельца. */}
         {/* ИИ-агент пока скрыт. ChatWidget не подключается; разметка его кнопок не включается в HTML-снимки. */}
         <FeedbackForm />

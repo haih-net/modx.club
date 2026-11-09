@@ -1,11 +1,60 @@
-import type { SiteLayoutData } from '../interfaces'
-export const siteLayout: SiteLayoutData = {
-  locale: 'ru',
-  header:
-    '<header class="sc-4020fe86-0 hUfBHi"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-4020fe86-1 hEHPBi"><a type="button" aria-label="modx.club" data-area="logo" class="sc-63d2e661-0 dYOCUZ" href="/"><span class="sc-63d2e661-1 boFtdM">M</span><span class="sc-63d2e661-2 kGbQZL">modx<!-- -->.<em>club</em></span></a><button aria-label="Открыть меню" aria-expanded="false" data-area="burger" class="sc-4020fe86-5 jSmqNG" aria-controls="site-nav"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button><nav data-area="nav" class="sc-4020fe86-2 fgfERY" id="site-nav"><a class="sc-4020fe86-3 fInpVo" href="/services">Услуги</a><a class="sc-4020fe86-3 fInpVo" href="/concepts">База знаний</a><a class="sc-4020fe86-3 fInpVo" href="/about">О Клубе</a></nav><button type="button" data-area="cta" data-action="feedback" aria-haspopup="dialog">Написать</button></div></div></header>',
-  footer:
-    '<footer class="sc-a7c66aa2-0 dOEBGb"><div class="sc-662eb54e-0 hYVOZb"><div class="sc-a7c66aa2-1 fSztHi"><div class="sc-a7c66aa2-2 clXgLi"><div class="sc-a7c66aa2-3 kTGQCJ">modx.club</div><p class="sc-a7c66aa2-4 ftBoNS">Управляемая модернизация сайтов на MODX: контейнеризация, параллельный фронтенд, постепенная замена платформы без простоев и потери SEO.</p></div><div class="sc-a7c66aa2-5 dIpFxp"><div class="sc-a7c66aa2-6 gobcPi">Продукт</div><div class="sc-a7c66aa2-8 ktiPQb"><a class="sc-a7c66aa2-7 bxPbhW" href="/#how">Как это работает</a><a class="sc-a7c66aa2-7 bxPbhW" href="/#how">Этапы переноса</a><a class="sc-a7c66aa2-7 bxPbhW" href="/#tech">Технологии</a><a class="sc-a7c66aa2-7 bxPbhW" href="/#guarantees">Гарантии</a></div></div><div class="sc-a7c66aa2-5 dIpFxp"><div class="sc-a7c66aa2-6 gobcPi">Ресурсы</div><div class="sc-a7c66aa2-8 ktiPQb"><a class="sc-a7c66aa2-7 bxPbhW" href="/about">О Клубе</a></div></div></div><div class="sc-a7c66aa2-9 WIPiV"><span>© 2013–2026 modx.club — Безопасная модернизация MODX-сайтов</span><div><span>Сделано для безопасной модернизации MODX</span> <a target="_blank" href="https://fi1osof.ru" rel="noopener noreferrer">By 𝕱</a></div></div></div></footer>',
-  mainClass: 'sc-f4bc612e-1 kjnFom',
-  shellClass: 'sc-f4bc612e-0 cDAnwM',
-  outerClass: 'sc-ffd852fc-1 cJdlMq',
+export interface NavigationItem {
+  label: string
+  href: string
+}
+export interface FooterData {
+  description: string
+  columns: { title: string; items: NavigationItem[] }[]
+  copyright: string
+}
+export const navigation: NavigationItem[] = [
+  {
+    label: 'Услуги',
+    href: '/services',
+  },
+  {
+    label: 'База знаний',
+    href: '/concepts',
+  },
+  {
+    label: 'О Клубе',
+    href: '/about',
+  },
+]
+export const footer: FooterData = {
+  description:
+    'Управляемая модернизация сайтов на MODX: контейнеризация, параллельный фронтенд, постепенная замена платформы без простоев и потери SEO.',
+  columns: [
+    {
+      title: 'Продукт',
+      items: [
+        {
+          label: 'Как это работает',
+          href: '/#how',
+        },
+        {
+          label: 'Этапы переноса',
+          href: '/#how',
+        },
+        {
+          label: 'Технологии',
+          href: '/#tech',
+        },
+        {
+          label: 'Гарантии',
+          href: '/#guarantees',
+        },
+      ],
+    },
+    {
+      title: 'Ресурсы',
+      items: [
+        {
+          label: 'О Клубе',
+          href: '/about',
+        },
+      ],
+    },
+  ],
+  copyright: '© 2013–2026 modx.club — Безопасная модернизация MODX-сайтов',
 }

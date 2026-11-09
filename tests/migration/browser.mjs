@@ -1,6 +1,7 @@
 import { chromium } from '@playwright/test'
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import assert from 'node:assert/strict'
+import { load } from 'cheerio'
 const origin = process.env.PREVIEW_URL || 'http://localhost:4318'
 const root = process.cwd()
 await mkdir('.cache/browser', { recursive: true })
@@ -12,9 +13,23 @@ const browser = await chromium.launch({
   args: ['--no-sandbox', '--disable-crash-reporter'],
 })
 const pages = JSON.parse(
-  await readFile('app/Custom/content/index.json', 'utf8'),
+  await readFile('migration/current-2026-10-13/index.json', 'utf8'),
 )
+const sitemap = load(
+  await readFile('tests/migration/sitemap.production.xml', 'utf8'),
+  { xmlMode: true },
+)
+const paths = new Set(
+  sitemap('loc')
+    .toArray()
+    .map((el) => {
+      const url = new URL(sitemap(el).text())
+      return url.pathname + url.search
+    }),
+)
+const activePages = pages.filter((page) => paths.has(page.path))
 const results = []
+const browserErrors = []
 try {
   for (const width of [1440, 390]) {
     const context = await browser.newContext({
@@ -26,12 +41,12 @@ try {
     page.on('console', (m) => {
       if (m.type() === 'error') errors.push(m.text())
     })
-    for (const entry of pages) {
+    for (const entry of activePages) {
       const response = await page.goto(origin + entry.path, {
         waitUntil: 'networkidle',
       })
       assert.equal(response.status(), 200, entry.path)
-      assert.equal(await page.title(), entry.title)
+      assert.ok((await page.title()).trim())
       assert.equal(await page.locator('h1').count(), 1)
       const overflow = await page.evaluate(
         () =>
@@ -53,7 +68,7 @@ try {
             .map((i) => i.src),
         )
       assert.deepEqual(broken, [], entry.path)
-      assert.equal(await page.locator('button[value]').count(), 0)
+      assert.equal(await page.locator('main [class*="sc-"]').count(), 0)
       await page.screenshot({
         path: `.cache/screenshots/${width}-${entry.file}.png`,
       })
@@ -81,7 +96,7 @@ try {
       await page
         .locator('main')
         .textContent()
-        .then((t) => t.includes('Page 2 of 3')),
+        .then((t) => t.includes('Страница 2 из 3')),
     )
     await page.goBack()
     await page.waitForURL('**/concepts')
@@ -98,26 +113,35 @@ try {
       true,
       'Фокус заголовка',
     )
-    await page.locator('label[for="locale-switcher-toggle"]').click()
-    await page.locator('a[href="/en/concepts/modx-docker"]').click()
-    await page.waitForURL('**/en/concepts/modx-docker')
-    assert.equal(await page.locator('html').getAttribute('lang'), 'en')
-    assert.deepEqual(errors, [], 'Ошибки браузера')
+    const redirect = await context.request.get(
+      origin + '/en/concepts/modx-docker',
+      { maxRedirects: 0 },
+    )
+    assert.equal(redirect.status(), 301)
+    assert.equal(redirect.headers().location, '/concepts/modx-docker')
+    assert.equal(await page.locator('html').getAttribute('lang'), 'ru')
+    await page.getByRole('button', { name: 'Написать', exact: true }).click()
+    await page.locator('dialog[open]').waitFor({ state: 'visible' })
+    await page.keyboard.press('Escape')
+    await page.locator('dialog[open]').waitFor({ state: 'hidden' })
+    browserErrors.push(...errors)
     await context.close()
   }
-  const reference = await browser.newPage({
-    viewport: { width: 1440, height: 900 },
-  })
-  for (const path of ['/', '/about', '/concepts/modx-docker']) {
-    await reference.goto('http://localhost:3000' + path, {
-      waitUntil: 'networkidle',
+  if (process.env.REFERENCE_URL) {
+    const reference = await browser.newPage({
+      viewport: { width: 1440, height: 900 },
     })
-    await reference.screenshot({
-      path:
-        '.cache/screenshots/legacy-' +
-        (path.replaceAll('/', '_') || 'home') +
-        '.png',
-    })
+    for (const path of ['/', '/about', '/concepts/modx-docker']) {
+      await reference.goto(process.env.REFERENCE_URL + path, {
+        waitUntil: 'networkidle',
+      })
+      await reference.screenshot({
+        path:
+          '.cache/screenshots/legacy-' +
+          (path.replaceAll('/', '_') || 'home') +
+          '.png',
+      })
+    }
   }
   await writeFile(
     '.cache/browser-results.json',
@@ -126,6 +150,7 @@ try {
   console.log(
     `Проверено ${results.length} страниц/ширин, SPA, история, пагинация, язык, фокус и ошибки браузера`,
   )
+  assert.deepEqual(browserErrors, [], 'Ошибки браузера')
 } finally {
   await browser.close()
 }

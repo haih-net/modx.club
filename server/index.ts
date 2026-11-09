@@ -1,4 +1,9 @@
 import './env'
+import { db, migrateDatabase } from './database'
+import { setupChat } from './chat'
+import { setupClientCertificate } from './middleware/clientCertificate'
+import { setupMedia } from './schema/types/media'
+import { imageResizerMiddleware } from './middleware/imageResizer'
 import express, { type ErrorRequestHandler } from 'express'
 import { logDevError } from './errorLogging'
 import { createServer } from 'node:http'
@@ -9,8 +14,7 @@ import { logEvent, startMetricsServer } from './observability'
 import type { ServerBuild } from 'react-router'
 import type { ViteDevServer } from 'vite'
 
-import { setupGraphqlServer } from './middleware/graphql'
-import { staticSchema } from './schema/static'
+import { setupGraphqlMiddleware } from './middleware/graphql'
 
 const dev = process.env.NODE_ENV === 'development'
 
@@ -42,6 +46,7 @@ function setupShutdown(server: ReturnType<typeof createServer>) {
         await vite.close()
       }
 
+      await db.destroy()
       server.close(() => process.exit(0))
     } catch (error) {
       logEvent('error', 'shutdown_error', { signal })
@@ -55,6 +60,8 @@ function setupShutdown(server: ReturnType<typeof createServer>) {
 }
 
 async function startServer() {
+  await migrateDatabase(db)
+  await db.raw('SELECT 1')
   const app = express()
   app.set('trust proxy', true)
   app.disable('x-powered-by')
@@ -72,18 +79,16 @@ async function startServer() {
     )
   })
 
+  setupClientCertificate(app, db)
+  setupChat({ app, storage: undefined })
+  app.use('/images/resized/', imageResizerMiddleware)
+  app.use('/assets/images/', imageResizerMiddleware)
+  setupMedia(app)
+
   const httpServer = createServer(app)
 
   // GraphQL middleware
-  stopGraphql = await setupGraphqlServer(
-    app,
-    httpServer,
-    staticSchema,
-    async ({ req, res }) => {
-      res.setHeader('Cache-Control', 'no-store')
-      return { req }
-    },
-  )
+  stopGraphql = await setupGraphqlMiddleware(app, httpServer)
 
   const { createRequestHandler } = await import('@react-router/express')
 

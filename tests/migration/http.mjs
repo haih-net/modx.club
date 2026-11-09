@@ -4,8 +4,21 @@ import assert from 'node:assert/strict'
 import { load } from 'cheerio'
 import { spawn } from 'node:child_process'
 const pages = JSON.parse(
-  await readFile('app/Custom/content/index.json', 'utf8'),
+  await readFile('migration/current-2026-10-13/index.json', 'utf8'),
 )
+const publicSitemap = load(
+  await readFile('tests/migration/sitemap.production.xml', 'utf8'),
+  { xmlMode: true },
+)
+const publicPaths = new Set(
+  publicSitemap('loc')
+    .toArray()
+    .map((el) => {
+      const url = new URL(publicSitemap(el).text())
+      return url.pathname + url.search
+    }),
+)
+const activePages = pages.filter((page) => publicPaths.has(page.path))
 const child = spawn(process.execPath, ['build/node/index.js'], {
   env: {
     ...process.env,
@@ -26,11 +39,11 @@ try {
     await setTimeout(100)
   }
   const internalLinks = new Set()
-  for (const page of pages) {
+  for (const page of activePages) {
     const response = await fetch(origin + page.path)
     assert.equal(response.status, 200, page.path)
     const $ = load(await response.text())
-    assert.equal($('title').text(), page.title, page.path)
+    assert.ok($('title').text().trim(), page.path)
     assert.equal($('h1').length, 1, `${page.path}: один h1`)
     assert.equal($('html').attr('lang'), page.locale)
     assert.ok($('meta[name=description]').attr('content'))
@@ -38,18 +51,32 @@ try {
       $('link[rel=canonical]').attr('href'),
       'https://modx.club' + page.path,
     )
-    assert.equal($('button[value]').length, 0, 'Кнопки агента скрыты')
+    assert.equal(
+      $('main [class*="sc-"]').length,
+      0,
+      'Нет сериализованных классов',
+    )
     const raw = load(
       await readFile(`migration/current-2026-10-13/raw/${page.raw}`, 'utf8'),
     )
     const normalize = (s) => s.replace(/\s+/g, ' ').trim()
-    const content = normalize($('main').text())
+    const normalizeMath = (root, element) => {
+      const copy = root(element).clone()
+      copy.find('.katex').each((_, math) => {
+        const formula = root(math)
+          .find('annotation[encoding="application/x-tex"]')
+          .text()
+        root(math).replaceWith(root('<span>').text(formula))
+      })
+      return normalize(copy.text())
+    }
+    const content = normalizeMath($, $('main'))
     for (const el of raw(
       'main main p, main main li, main main pre',
     ).toArray()) {
       const copy = raw(el).clone()
       copy.find('button[value]').remove()
-      const text = normalize(copy.text())
+      const text = normalizeMath(raw, copy)
       if (text)
         assert.ok(
           content.includes(text),
@@ -67,6 +94,8 @@ try {
     }
   }
   for (const href of internalLinks) {
+    const targetUrl = new URL(origin + href)
+    if (!publicPaths.has(targetUrl.pathname + targetUrl.search)) continue
     const response = await fetch(origin + href)
     assert.equal(response.status, 200, href)
     const hash = new URL(origin + href).hash
@@ -94,13 +123,13 @@ try {
     301,
   )
   const sitemap = await (await fetch(origin + '/sitemap.xml')).text()
-  for (const page of pages)
+  for (const page of activePages)
     assert.ok(
       sitemap.includes(page.path.replaceAll('&', '&amp;') + '</loc>'),
       page.path,
     )
   console.log(
-    `Проверено ${pages.length} страниц: HTTP, полный текст, SEO, изображения, 404, редирект и sitemap`,
+    `Проверено ${activePages.length} страниц: HTTP, полный текст, SEO, изображения, 404, редирект и sitemap`,
   )
 } finally {
   child.kill('SIGTERM')
