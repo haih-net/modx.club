@@ -3,48 +3,49 @@ import { styled } from '@linaria/react'
 // Исходная тема modx.club, извлечённая из актуального HTML 13 октября 2026 года.
 // Цвета, размеры, адаптивные правила и стили материалов сохранены.
 export const DocumentStyled = styled.html`
-  * {
+  /* Глобальные значения уступают стилям компонентов независимо от порядка CSS. */
+  :where(&) * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
   /*!sc*/
-  &,
-  body,
-  #root {
+  :where(&),
+  :where(&) body,
+  :where(&) #root {
     height: 100%;
     padding: 0;
     margin: 0;
   }
-  a {
+  :where(&) a {
     text-decoration: none;
     color: inherit;
   }
-  a:hover {
+  :where(&) a:hover {
     text-decoration: underline;
   }
-  a:active {
+  :where(&) a:active {
     text-decoration: none;
   }
-  input:disabled {
+  :where(&) input:disabled {
     cursor: not-allowed;
     opacity: 0.7;
   }
-  button:enabled {
+  :where(&) button:enabled {
     cursor: pointer;
   }
-  button:disabled {
+  :where(&) button:disabled {
     cursor: not-allowed;
     opacity: 0.7;
   }
-  body .mdxeditor-popup-container {
+  :where(&) body .mdxeditor-popup-container {
     z-index: 2000;
   }
-  *::before,
-  *::after {
+  :where(&) *::before,
+  :where(&) *::after {
     box-sizing: border-box;
   }
-  body {
+  :where(&) body {
     font-family:
       'Inter',
       -apple-system,
@@ -59,27 +60,27 @@ export const DocumentStyled = styled.html`
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  button {
+  :where(&) button {
     font-family: inherit;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  :where(&) h1,
+  :where(&) h2,
+  :where(&) h3,
+  :where(&) h4,
+  :where(&) h5,
+  :where(&) h6 {
     margin: 0;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
-  p {
+  :where(&) p {
     margin: 0;
   }
-  main {
+  :where(&) main {
     min-width: 0;
     overflow-wrap: anywhere;
   }
-  [id] {
+  :where(&) [id] {
     scroll-margin-top: 88px;
   }
 `
