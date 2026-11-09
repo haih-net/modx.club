@@ -1,7 +1,7 @@
+import { logDevError } from './errorLogging'
 import { createServer, type Server } from 'node:http'
-import type { ApolloServerPlugin } from '@apollo/server'
+import type { ApolloServerPlugin, BaseContext } from '@apollo/server'
 import { collectDefaultMetrics, Counter, Registry } from '@prometheus-io/client'
-import type { Context } from './schema/builder'
 
 const registry: Registry = new Registry()
 const graphqlErrors: Counter<'kind'> = new Counter({
@@ -27,7 +27,7 @@ export const logEvent = (
   process.stdout.write(`${line}\n`)
 }
 
-export const graphqlObservability: ApolloServerPlugin<Context> = {
+export const graphqlObservability: ApolloServerPlugin<BaseContext> = {
   async requestDidStart() {
     return {
       async didEncounterErrors(context) {
@@ -49,6 +49,11 @@ export const graphqlObservability: ApolloServerPlugin<Context> = {
           graphqlErrors.inc({ kind })
           // Do not log queries, variables, credentials or arbitrary error messages.
           logEvent('error', 'graphql_error', { kind, code })
+          logDevError('graphql.error', error.originalError ?? error, {
+            operationName: context.operationName,
+            path: error.path,
+            code,
+          })
         }
       },
     }

@@ -3,6 +3,8 @@
   "include": [
     "app/**/*",
     "server/**/*",
+    "scripts/chat.ts",
+    "scripts/dev.ts",
     "*.ts",
     ".react-router/types/**/*",
     ".storybook/**/*.ts",
@@ -16,6 +18,7 @@
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "rootDirs": [".", ".react-router/types"],
     "baseUrl": ".",
     "paths": {

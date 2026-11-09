@@ -1,15 +1,18 @@
-import express from 'express'
+import './env'
+import express, { type ErrorRequestHandler } from 'express'
+import { logDevError } from './errorLogging'
 import { createServer } from 'node:http'
+import { listen, getServerUrls } from './listen'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { logEvent, startMetricsServer } from './observability'
 import type { ServerBuild } from 'react-router'
 import type { ViteDevServer } from 'vite'
 
-import { setupGraphqlMiddleware } from './graphqlMiddleware'
+import { setupGraphqlServer } from './middleware/graphql'
+import { staticSchema } from './schema/static'
 
 const dev = process.env.NODE_ENV === 'development'
-const port = Number(process.env.PORT || 3000)
 
 let stopGraphql: (() => Promise<void>) | null = null
 let vite: ViteDevServer | null = null
@@ -23,18 +26,28 @@ function setupShutdown(server: ReturnType<typeof createServer>) {
     }
     stopping = true
     logEvent('info', 'shutdown', { signal })
-    metricsServer?.close()
+    setTimeout(() => {
+      logEvent('error', 'shutdown_timeout', { signal })
+      process.exit(1)
+    }, 5000).unref()
 
-    if (stopGraphql) {
-      await stopGraphql()
+    try {
+      metricsServer?.close()
+
+      if (stopGraphql) {
+        await stopGraphql()
+      }
+
+      if (vite) {
+        await vite.close()
+      }
+
+      server.close(() => process.exit(0))
+    } catch (error) {
+      logEvent('error', 'shutdown_error', { signal })
+      logDevError('shutdown.error', error)
+      process.exit(1)
     }
-
-    if (vite) {
-      await vite.close()
-    }
-
-    server.close(() => process.exit(0))
-    setTimeout(() => process.exit(0), 5000).unref()
   }
 
   process.on('SIGINT', () => shutdown('SIGINT'))
@@ -62,7 +75,15 @@ async function startServer() {
   const httpServer = createServer(app)
 
   // GraphQL middleware
-  stopGraphql = await setupGraphqlMiddleware(app, httpServer)
+  stopGraphql = await setupGraphqlServer(
+    app,
+    httpServer,
+    staticSchema,
+    async ({ req, res }) => {
+      res.setHeader('Cache-Control', 'no-store')
+      return { req }
+    },
+  )
 
   const { createRequestHandler } = await import('@react-router/express')
 
@@ -91,12 +112,16 @@ async function startServer() {
     )
   } else {
     // Production: serve static files and prebuilt SSR bundle
+    app.use(
+      express.static(resolve('shared'), { dotfiles: 'deny', index: false }),
+    )
     const sirv = (await import('sirv')).default
     const staticFiles = sirv('build/client', { extensions: [] })
     app.use((req, res, next) => {
       // Пагинация хранится в файлах; запросы с page должны получить свой снимок, а не первый каталог.
-      if (new URL(req.url, 'http://localhost').searchParams.has('page'))
-        {return next()}
+      if (new URL(req.url, 'http://localhost').searchParams.has('page')) {
+        return next()
+      }
       return staticFiles(req, res, next)
     })
 
@@ -107,12 +132,18 @@ async function startServer() {
     app.all('/{*splat}', createRequestHandler({ build }))
   }
 
+  const logRequestError: ErrorRequestHandler = (error, req, _res, next) => {
+    logDevError('http.error', error, { method: req.method, path: req.path })
+    next(error)
+  }
+  app.use(logRequestError)
+
   metricsServer = startMetricsServer()
   setupShutdown(httpServer)
 
-  httpServer.listen(port, '0.0.0.0', () => {
-    logEvent('info', 'server_ready', { port })
-  })
+  const port = await listen(httpServer, Number(process.env.PORT || 3000))
+  logEvent('info', 'server_ready', { port })
+  process.stdout.write(`Сайт доступен: ${getServerUrls(port).join('\n')}\n`)
 }
 
 startServer().catch((err) => {
